@@ -1,0 +1,29 @@
+.navbar-nav a:hover{
+    color: tomato;
+}
+
+
+#logo_text{
+    font-family: 'Caprasimo', cursive;
+    font-size: 1.7em;
+    padding-top: 0.4rem;
+    margin-left: 0.3rem;
+    color: rgb(53, 53, 53);
+}
+
+#navbar_main{
+    background-color: rgb(106, 183, 255) !important;
+}
+
+.nav-link{
+    color: rgb(0,0,0) !important;
+    font-family: cursive;
+    font-weight: 500 !important;
+    font-size: 1.1em;
+}
+
+.active{
+    color: crimson !important;
+}
+
+
