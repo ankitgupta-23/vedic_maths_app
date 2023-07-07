@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% set active_page = 'index' %}
+
+<head>
+    {% block head %} {{ super() }}
+
+    <style>
+        body>h1{
+            margin-left: 0.80rem;
+            margin-top: 0.3rem;
+            padding: 0.25rem;
+            color: red;
+
+        }
+
+        body>p{
+            margin-left: 1rem;
+            margin-right: 1rem;
+            padding: 0.25rem;
+        }
+
+    </style>
+
+    {% endblock %}
+</head>
+
+<body>
+    {% block content %}
+    <h1>Ekadhikena Purvena</h1>
+    
+    {% endblock %}
+</body>

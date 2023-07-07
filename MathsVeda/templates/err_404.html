@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% set active_page = 'index' %}
+
+<head>
+    {% block head %} 
+    {{ super() }}
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <style>
+
+        .anime_404{
+            display: block;
+            width: 60vw;
+            height: 50vh;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        #error_404_message{
+            width: fit-content;
+            text-align: center;
+            margin: 20px auto;
+            padding: 0.4rem;
+            font-size: 1.2em;
+            font-weight: 500;
+           
+        }
+
+        #oops{
+            color: tomato;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        #home_button{
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+            height: 50px;
+            border-radius: 5px;
+            background-color: rgb(38, 86, 241);
+            color: white;
+        }
+
+        #home_button>a{
+            text-decoration: none;
+            color: white;
+            padding: 0.8rem;
+        }
+
+        #home_button>a:hover{
+            color: black;
+        }
+
+        #home_button:hover{
+            color: black;
+            background-color: rgb(226, 226, 226);
+        }
+
+    </style>
+    
+    {% endblock %}
+</head>
+
+<body>
+    {% block content %}
+    
+    <lottie-player class = "anime_404" src="https://assets4.lottiefiles.com/packages/lf20_suhe7qtm.json"  background="transparent"  speed="1"  loop  autoplay></lottie-player>
+    
+    <p id = "error_404_message"><span id = "oops" >Oops! </span> Looks like we took a wrong turn in the math maze. 
+        <br> Let's backtrack and find the solution together!</p>
+    
+    <button id = "home_button" > <a href="{{ url_for('main.index') }}">Back to Home</a></button>
+    
+    {% endblock %}
+</body>

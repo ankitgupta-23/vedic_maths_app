@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+<head>
+    {% block head %} 
+    {{ super() }}
+    <style>
+        
+        body>h1{
+            margin-left: 0.80rem;
+            margin-top: 0.3rem;
+            padding: 0.25rem;
+            color: red;
+        }
+
+        #p_label{
+            font-size: 1.3rem;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        #input_form{
+            box-sizing: border-box;
+            text-align: center;
+            margin-top: 20px;
+            padding: 0.4rem;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        
+        input[type=number] {
+        -moz-appearance: textfield;
+        }
+
+        .sol_btn{
+            
+            display: block;
+            margin: 0 auto;
+            width: 100px;
+            height: 50px;
+            font-size: 1.3rem;
+            margin-top: 20px;
+            background-color: crimson;
+            color: white;
+            border: 1px solid rgb(175, 60, 83);
+            border-radius: 12px;
+        
+        }
+
+        .sol_btn:hover{
+            color: black;
+            background-color: lightgreen;
+            box-shadow: rgb(81, 107, 81) 5px 6px 7px;
+        }
+
+        label,input{
+            font-size: 1.5em;
+            margin-top: 0.5rem;
+        }
+
+        input{
+            box-sizing: border-box;
+            border: 1px solid gray;
+            background-color: rgb(235, 255, 255);
+            padding: 0.3rem;
+        }
+
+        .lg_eq{
+            font-size: 1.2em;
+        }
+        @media only screen and (min-width: 600px) {
+            .lg_eq{
+                font-size: 1.5em;
+                
+            }
+        }
+
+        .show{
+           width: fit-content;
+           padding: 0.3rem;
+           margin: 0 auto;
+           text-align: center;
+           margin-top: 9px;
+           position: relative;
+           left: 0.9rem;
+           animation:  animate 4s forwards;
+       }
+
+       @keyframes animate {
+            0%   {opacity: 1;}
+            90%  {opacity: 1;}
+            100% {opacity: 0;}
+        }
+        
+        @-webkit-keyframes animate {
+            0%   {opacity: 1;}
+            90%  {opacity: 1;}
+            100% {opacity: 0;}  
+        }
+
+        .hide{
+            display: none;
+        }
+
+    </style>
+
+    {% endblock %}
+    </head>
+
+    <body>
+        {% block content %}
+
+        <h1>Pair of Linear Equations in two variable: </h1>
+        <br>
+
+        $$\class{lg_eq}{
+            {\color {DarkGreen} a_1} x + {\color {Purple} b_1} y = {\color {MediumBlue} c_1}
+        }
+        $$
+
+        $$  \class{lg_eq}{
+            {\color{DodgerBlue} a_2} x + {\color{Red} b_2} y = {\color{Magenta} c_2}
+        }
+        $$
+
+
+        <p id="p_label">Enter value of coefficients and constant terms: </p>
+        <div id = "error_message" class = "alert alert-info hide">
+            <i class="fa-solid fa-circle-info fa-bounce"></i>&nbsp;&nbsp;
+            All fiels are required ! <br>
+            &nbsp;&nbsp;&nbsp;&nbsp; You may have missed some values &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </div>
+        
+            <div id = "error_message2" class = "alert alert-info hide">
+                <i class="fa-solid fa-circle-info fa-bounce"></i>&nbsp;&nbsp;
+                Please Enter non-zero value for: <br>
+                &nbsp;&nbsp;&nbsp;&nbsp; a1, a2, b1, b2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                </div>
+                
+        <div id = "input_form">
+            <form action="/calc?p=s-5-que", method="POST" onsubmit="return validate()">
+            
+                <label for="a1">a<sub>1</sub> &nbsp;</label>
+                <input type="number" name= "a1"><br>
+                <label for="b1">b<sub>1</sub>&nbsp;</label>
+                <input type="number" name= "b1"><br>
+                <label for="c1">c<sub>1</sub>&nbsp;</label>
+                <input type="number" name= "c1"><br>
+                <label for="a2">a<sub>2</sub>&nbsp;</label>
+                <input type="number" name= "a2"><br>
+                <label for="b2">b<sub>2</sub>&nbsp;</label>
+                <input type="number" name= "b2"><br>
+                <label for="c2">c<sub>2</sub>&nbsp;</label>
+                <input type="number" name= "c2">
+            
+                <button class = "sol_btn">Solve</button>
+            </form>
+        </div>
+
+        
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml-full.min.js" integrity="sha512-PbLRl9V4qEM7j3xggKupLNdcodHT0w+x77S/JoTWxrhPEVZ0NkTPp90bzUeTyFXsBzsaApVOZdCHIzL6o51KiA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
+        <script>
+            function validate(){
+                var inputs = document.querySelectorAll('input');
+                var alert_box = document.querySelector("#error_message");
+
+                for(let i=0; i< inputs.length; i++){
+                    if(inputs[i].value == ''){
+                        
+                        alert_box.classList.remove('hide')
+                        alert_box.classList.add('show')
+                        setTimeout(() => {
+                            alert_box.classList.add('hide')
+                            alert_box.classList.remove('show')
+                        }, 4000);
+                    
+                        return false;
+                    }else{
+                        // check for non zero value for a1, a2, b1, b2
+                        //console.log(i)
+                        if(i == 0 || i == 1 || i == 3 || i == 4){ 
+                            if(inputs[i].value == '0'){
+                                console.log(i)
+                                var error_box2 = document.querySelector("#error_message2");
+                                error_box2.classList.remove('hide')
+                                error_box2.classList.add('show')
+                                setTimeout(() => {
+                                    error_box2.classList.add('hide')
+                                    error_box2.classList.remove('show')
+                                }, 4000);
+
+                                return false;
+                            }
+                        }
+                    }
+                    
+                }
+              
+                return true;
+            }
+        </script>
+        
+        
+        {% endblock %}
+    </body>

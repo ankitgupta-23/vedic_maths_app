@@ -1,0 +1,803 @@
+{% extends 'base.html' %}
+{% set active_page = 'index' %}
+
+<head>
+    {% block head %}
+    {{ super() }}
+
+    <style>
+        body>h1{
+            
+            margin-top: 0.3rem;
+            color: rgb(30, 128, 255);
+            padding-bottom: 5px;
+            border-bottom: 2px solid rgb(16, 148, 67);
+            width: fit-content;
+            font-style: italic;
+            font-family: cursive;
+            margin: 0.2rem auto;
+            
+        }
+
+        body>p{
+            margin-left: 1rem;
+            margin-right: 1rem;
+            padding: 0.25rem;
+        }
+
+        
+        h4{
+            padding: 0.3rem;
+            text-align: left;
+            font-size: 1.2em;
+        }
+
+        .steps_bullet{
+            color: rgb(52, 164, 255);
+            font-weight: 600;
+            font-style: italic;
+            
+        }
+
+
+        .eq_expression{
+            margin-top: 20px;
+            padding: 0.3rem;
+            font-size: 1.4em;
+            text-align: center;
+        }
+
+        .lg_eq{
+            font-size: 0.7em;
+           
+        }
+
+        .too_lg_eq{
+            font-size: 0.3em;
+        }
+
+        @media only screen and (min-width: 700px) {
+            .lg_eq{
+                font-size: 0.9em;
+                
+            }
+
+            .too_lg_eq{
+                font-size: 0.8em;
+            }
+        }
+
+        
+
+    </style>
+
+    {% endblock%}
+</head>
+
+<body>
+    {% block content %}
+    <h1>Solution</h1>
+    
+    {% if eq_type == 'type-1' %}
+
+    <!-- solution for type-1 equation -->
+
+            
+
+            <div class = "eq_expression">Your entered Euqation is:
+                $$
+                ({{solution["terms"]["a"]}}x +  {% if solution["terms"]["b"] < 0 %} ({{solution["terms"]["b"]}}) {% endif %}
+                {% if solution["terms"]["b"] >= 0 %} {{solution["terms"]["b"]}} {% endif %} )
+                =
+                ({{solution["terms"]["c"]}}x +  {% if solution["terms"]["d"] < 0 %} ({{solution["terms"]["d"]}}) {% endif %}
+                {% if solution["terms"]["d"] >= 0 %} {{solution["terms"]["d"]}} {% endif %} )
+                $$
+            
+            </div>
+
+        <div class="container sol_s4">
+
+        
+
+                <h4><span class = "steps_bullet">Step: 1 - </span>This is type-1 equation: </h4>
+                    $$    
+                    \text{ \color {Blue} Equation Type - 1} \enspace        
+                    $$
+                        
+                    $$  
+                    \class{eq_type_expression}{
+                    ({\color{DarkViolet} a} x + {\color{Red} b}) 
+                    = ({\color{DodgerBlue} c} x +  {\color{LimeGreen} d})
+                    }
+                    $$
+
+                <h4><span class = "steps_bullet">Step: 2 - </span>Identify a, b, c, d : </h4><br>
+
+                
+                    $$ a = {{solution["terms"]["a"]}} \qquad b = {{solution["terms"]["b"]}}  $$
+            
+                    $$ c = {{solution["terms"]["c"]}} \qquad d = {{solution["terms"]["d"]}} $$
+
+                <br>
+
+                {% if solution["type"] == "infinite" %}
+
+                <h4>As we can observe that the value of a is equal to c and value of b is equal to d</h4>
+
+                $$
+                a = c \qquad b = d
+                $$
+                
+                <h4>The given equation has infinite solutions</h4>
+
+                </div>
+
+                {% endif %}
+
+                {% if solution["type"] == "one solution" %}
+                
+                <h4><span class = "steps_bullet">Step: 3 - </span>Now value of x will be: </h4><br>
+
+                    $$
+                        x = \frac{d-b}{a-c}   
+                    $$
+
+                    $$
+                        x = \frac{ {{solution["terms"]["d"]}} - 
+                        {% if solution["terms"]["b"] < 0 %} ({{solution["terms"]["b"]}}) {% endif %}
+                        {% if solution["terms"]["b"] >= 0 %} {{solution["terms"]["b"]}} {% endif %} }
+                        { {{solution["terms"]["a"]}} - 
+                        {% if solution["terms"]["c"] < 0 %} ({{solution["terms"]["c"]}}) {% endif %}
+                        {% if solution["terms"]["c"] >= 0 %} {{solution["terms"]["c"]}} {% endif %} }
+            
+                    $$
+
+                    $$
+                            x = \frac{ {{solution["num"]}} }{ {{solution["deno"]}} }
+                    $$
+                
+                    <br>
+
+                    {% endif %}
+
+            
+                   
+                    {% if solution["type"] == "one solution" %}
+
+                        $$
+                        \text {So, the value of x is,}
+                        \enspace
+
+                        {% if solution["count"] == 1 %} {{solution["solution"][0]}} {% endif %}
+                    
+                        {% if solution["count"] == 2 %} 
+                            \frac{ {{solution["solution"][0]}} }{ {{solution["solution"][1]}} }
+                        {% endif %}
+                    
+                        $$
+                
+
+                {% endif %}
+        
+
+            </div>
+        {% endif %}
+
+        
+        
+        {% if eq_type == 'type-2' %}
+
+            <!-- solution for type-2 equation -->
+            <div class = "eq_expression">Your entered Euqation is:
+                $$
+                \class{lg_eq}{
+
+                (x +  {% if solution["terms"]["m"] < 0 %} ({{solution["terms"]["m"]}}) {% endif %}
+                {% if solution["terms"]["m"] >= 0 %} {{solution["terms"]["m"]}} {% endif %} )
+                
+                (x +  {% if solution["terms"]["n"] < 0 %} ({{solution["terms"]["n"]}}) {% endif %}
+                {% if solution["terms"]["n"] >= 0 %} {{solution["terms"]["n"]}} {% endif %} )
+                =
+                (x +  {% if solution["terms"]["p"] < 0 %} ({{solution["terms"]["p"]}}) {% endif %}
+                {% if solution["terms"]["p"] >= 0 %} {{solution["terms"]["p"]}} {% endif %} )
+                
+                (x +  {% if solution["terms"]["q"] < 0 %} ({{solution["terms"]["q"]}}) {% endif %}
+                {% if solution["terms"]["q"] >= 0 %} {{solution["terms"]["q"]}} {% endif %} )
+                }
+                $$
+
+                
+            
+            </div>
+
+            <div class="container sol_s4">
+                <h4><span class="steps_bullet">Step: 1 - </span>This is type-2 equation: </h4>
+                $$
+                
+                \text
+                { \color {Blue} Equation Type - 2}
+            
+                $$
+                
+                $$
+                \class{lg_eq}{
+                ({\color{MediumBlue}x }
+                + 
+                {\color{Red} m}) 
+                
+                ({\color{MediumBlue} x }
+                + 
+                {\color{DodgerBlue} n}) 
+                = 
+                ({\color{MediumBlue} x }
+                + 
+                 {\color{LightSeaGreen} p})
+                
+                ({\color{MediumBlue} x }
+                + 
+                 {\color{Purple} q})
+                }
+                $$
+
+                <br>
+                <h4><span class = "steps_bullet">Step: 2 - </span>Identify m, n, p, q : </h4><br>
+
+                
+                $$ m = {{solution["terms"]["m"]}} \qquad n = {{solution["terms"]["n"]}}  $$
+            
+                $$ p = {{solution["terms"]["p"]}} \qquad q = {{solution["terms"]["q"]}} $$
+
+                <br>
+                <h4><span class = "steps_bullet">Step: 3 - </span>Now value of x will be: </h4><br>
+
+                $$
+                   x =  \frac{pq - mn}{(m+n) - (p+q)}
+                $$
+
+                <br>
+
+                $$
+                    x = \frac{ ({{solution["terms"]["p"]}}) ({{solution["terms"]["q"]}})
+                     - ({{solution["terms"]["m"]}}) ({{solution["terms"]["n"]}})  } 
+                     { 
+                       ( {{solution["terms"]["m"]}} + {% if solution["terms"]["n"] < 0 %} ({{solution["terms"]["n"]}}) 
+                            {% else %} {{solution["terms"]["n"]}}
+                        {% endif %}) -
+                        ( {{solution["terms"]["p"]}} + {% if solution["terms"]["q"] < 0 %} ({{solution["terms"]["q"]}}) 
+                            {% else %} {{solution["terms"]["q"]}}
+                        {% endif %}) 
+                     }
+                
+                $$
+
+                <br>
+
+                $$
+                     x = \frac{ {{solution["terms"]["p"] * solution["terms"]["q"]}} -
+                     {% if (solution["terms"]["m"] * solution["terms"]["n"]) < 0 %} ({{(solution["terms"]["m"] * solution["terms"]["n"])}})
+                     {% else %} {{solution["terms"]["m"] * solution["terms"]["n"]}}
+                     {% endif %} 
+                    }
+                    {
+                        {{solution["terms"]["m"] + solution["terms"]["n"]}} -
+                        {% if (solution["terms"]["p"] + solution["terms"]["q"]) < 0 %} ({{(solution["terms"]["p"] + solution["terms"]["q"])}})
+                        {% else %} {{solution["terms"]["p"] + solution["terms"]["q"]}}
+                        {% endif %}
+
+                    }
+                $$
+
+                <br>
+                $$
+                    x = \frac{ {{solution["num"]}} } { {{solution["deno"]}} }
+                $$
+                <br>
+
+                {% if sol_exists == "No" %}
+                <h4>-> Either the given eqation have no solution or infinite solutions</h4>
+                {% endif %}
+
+                {% if sol_exists == "Yes" %}
+                $$
+                    \text{So, the value of x is,} \enspace
+                    {% if solution["count"] == 1 %} {{solution["solution"][0]}} {% endif %}
+                    {% if solution["count"] == 2 %} 
+                    \frac{ {{solution["solution"][0]}} } { {{solution["solution"][1]}} }
+                    {% endif %}
+                $$
+                {% endif %}
+                    
+                {% if solution["solution"][0] == 0 %}
+                <br>
+                $$ \text{ ->  This is a special case where : }$$
+                $$
+                    (m \times n) = (p \times q)
+                $$
+                
+                $$
+                \text{->  Remember in such a case when:}
+                $$  
+
+                $$ mn = pq \text{  then  } x = 0$$
+               
+
+                {% endif %}
+
+
+            </div>
+        {% endif %}
+        
+        
+        
+        {% if eq_type == "type-3" %}
+            
+            <!-- solution for type-3 equation -->
+
+            <div class = "eq_expression">Your entered Euqation is:
+                $$
+                \frac{ ({{solution["terms"]["a"]}} x + 
+                {% if solution["terms"]["b"] < 0 %} ({{solution["terms"]["b"]}}) 
+                {% else %} {{solution["terms"]["b"]}} {% endif %} )}
+                { ({{solution["terms"]["c"]}} x + 
+                {% if solution["terms"]["d"] < 0 %} ({{solution["terms"]["d"]}}) 
+                {% else %} {{solution["terms"]["d"]}} {% endif %} ) }  
+                = \frac{ {{solution["terms"]["p"]}} }{ {{solution["terms"]["q"]}} }
+                $$
+            </div>
+
+        <div class="container sol_s4">
+
+            <h4><span class="steps_bullet">Step: 1 - </span>This is type-3 equation: </h4>
+            $$
+                
+                \text
+                { \color {Blue} Equation Type - 3}
+                
+                $$
+
+                $$
+               
+                \dfrac{ ({\color{DarkGreen} a} x + {\color{Red} b}) }
+                { ({\color{DarkViolet} c} x + {\color{Magenta} d}) }
+                = 
+                \dfrac{ {\color{Purple} p} }
+                { {\color{DodgerBlue} q} }
+                
+                $$
+
+                <br>
+                <h4><span class = "steps_bullet">Step: 2 - </span>Identify a, b, c, d, p and q: </h4><br>
+                
+                $$  a = {{solution["terms"]["a"]}} \qquad b = {{solution["terms"]["b"]}} $$
+                $$  c = {{solution["terms"]["c"]}} \qquad d = {{solution["terms"]["d"]}} $$
+                $$  p = {{solution["terms"]["p"]}} \qquad q = {{solution["terms"]["q"]}} $$
+
+                <br>
+
+                <h4><span class = "steps_bullet">Step: 3 - </span>Now value of x will be: </h4><br>
+
+                $$
+                   x =  \frac{pd - bq}{aq - cp}
+                $$
+                <br>
+
+                $$
+                    x = \frac{ ({{solution["terms"]["p"]}})({{solution["terms"]["d"]}}) - 
+                    ({{solution["terms"]["b"]}})({{solution["terms"]["q"]}}) }
+                    { ({{solution["terms"]["a"]}})({{solution["terms"]["q"]}}) - 
+                    ({{solution["terms"]["c"]}})({{solution["terms"]["p"]}}) }
+        
+                $$
+
+                <br>
+
+                $$
+                    x = \frac{
+                        {{ solution["terms"]["p"] * solution["terms"]["d"] }} - 
+                        {% if (solution["terms"]["b"] * solution["terms"]["q"]) < 0 %}
+                        ({{solution["terms"]["b"] * solution["terms"]["q"]}})
+                        {% else %} {{solution["terms"]["b"] * solution["terms"]["q"]}}
+                        {% endif %}
+                    }
+                    {
+                        {{ solution["terms"]["a"] * solution["terms"]["q"] }} - 
+                        {% if (solution["terms"]["c"] * solution["terms"]["p"]) < 0 %}
+                        ({{solution["terms"]["c"] * solution["terms"]["p"]}})
+                        {% else %} {{solution["terms"]["c"] * solution["terms"]["p"]}}
+                        {% endif %}
+                    }
+                $$
+
+                <br>
+
+                $$
+                    x = \frac{ {{solution["num"]}} } { {{solution["deno"]}} }
+                $$
+
+                {% if sol_exists == "No" %}
+                <h4>-> Either the given eqation have no solution or infinite solutions</h4>
+                {% endif %}
+
+                {% if sol_exists == "Yes" %}
+                    $$
+                    \text{So, the value of x is,} \enspace
+                    {% if solution["count"] == 1 %} {{solution["solution"][0]}} {% endif %}
+                    {% if solution["count"] == 2 %} 
+                    \frac{ {{solution["solution"][0]}} } { {{solution["solution"][1]}} }
+                    {% endif %}
+                    $$
+
+                {% endif %}
+                
+        </div>
+
+        {% endif %}
+
+
+        {% if eq_type == 'type-4' %}
+
+        <!-- solution for type-4 equation -->
+            
+        <div class = "eq_expression">Your entered Euqation is:
+            $$
+            \frac{
+                {{solution["terms"]["m"]}}
+            }
+            {
+                x + {% if solution["terms"]["a"] < 0 %} ({{solution["terms"]["a"]}})
+                {% else %} {{solution["terms"]["a"]}}
+                {% endif %}
+            }
+            + 
+            \frac{
+                {% if solution["terms"]["n"] < 0  %} ({{solution["terms"]["m"]}})
+                {% else %} {{solution["terms"]["n"]}}
+                {% endif %}
+            }
+            {
+                x + {% if solution["terms"]["b"] < 0 %} ({{solution["terms"]["b"]}})
+                {% else %} {{solution["terms"]["b"]}}
+                {% endif %}
+            }
+            $$
+        </div>
+
+    <div class="container sol_s4">
+
+        <h4><span class="steps_bullet">Step: 1 - </span>This is type-4 equation: </h4>
+
+        $$
+                
+        
+        \text
+        { \color {Blue} Equation Type - 4}
+        
+        $$
+
+        $$
+        \enspace
+        \frac{ {\color{DarkGreen} m} }
+
+        
+        { ({\color{Blue} x}
+        + 
+        {\color{Magenta} a}) }
+        
+        + 
+        
+        \frac{ {\color{Orange} n} }
+        
+        
+        { ({\color{Blue} x}
+        + 
+        {\color{Cyan} b}) }
+        = 
+        0
+       
+        $$
+
+        <br>
+        
+        <h4><span class = "steps_bullet">Step: 2 - </span>Identify m, n, a, b: </h4><br>
+
+        $$ m = {{solution["terms"]["m"]}} \qquad n = {{solution["terms"]["n"]}}  $$
+        $$ a = {{solution["terms"]["a"]}} \qquad b = {{solution["terms"]["b"]}}  $$
+
+        <br>
+
+        <h4><span class = "steps_bullet">Step: 3 - </span>Now value of x will be: </h4><br>
+
+        $$
+            x = \frac{-mb - na}{m + n}
+        $$
+
+        <br>
+
+        $$ x = 
+        \frac{
+            -( {{solution["terms"]["m"]}} ) ( {{solution["terms"]["b"]}} ) - 
+            ( {{solution["terms"]["n"]}} ) ( {{solution["terms"]["a"]}} )
+        }
+        {
+            {{solution["terms"]["m"]}} + 
+            {% if solution["terms"]["n"] < 0 %} ({{solution["terms"]["n"]}})
+            {% else %} {{solution["terms"]["n"]}}
+            {% endif %}
+        }
+        $$
+
+        <br>
+
+        $$ x = 
+            \frac{-
+                {% if (solution["terms"]["m"] * solution["terms"]["b"]) < 0 %} 
+               ( {{ solution["terms"]["m"] * solution["terms"]["b"] }} )
+               {% else %} {{ solution["terms"]["m"] * solution["terms"]["b"] }}
+               {% endif %} - 
+                {% if (solution["terms"]["n"] * solution["terms"]["a"]) < 0 %} 
+                ( {{ solution["terms"]["n"] * solution["terms"]["a"] }} )
+                {% else %} {{ solution["terms"]["n"] * solution["terms"]["a"] }}
+                {% endif %}
+
+            }
+            {
+                {{ solution["terms"]["m"] + solution["terms"]["n"] }}
+            }
+        $$
+
+        <br>
+
+        $$  
+            x = \frac{ {{solution["num"]}} } { {{solution["deno"]}} }
+        $$
+
+        <br>
+
+        {% if sol_exists == "No" %}
+            <h4>-> Either the given eqation have no solution or infinite solutions</h4>
+        {% endif %}
+
+        {% if sol_exists == "Yes" %}
+        
+        $$
+            \text{So, the value of x is,} \enspace
+            {% if solution["count"] == 1 %} {{solution["solution"][0]}} {% endif %}
+            {% if solution["count"] == 2 %} 
+            \frac{ {{solution["solution"][0]}} } { {{solution["solution"][1]}} }
+            {% endif %}
+        $$
+
+        {% endif %}
+
+
+        </div>
+
+        {% endif %}
+
+
+
+        {% if eq_type == 'type-5' %}
+
+        <!-- solution for type-5 equation -->
+
+        <div class = "eq_expression">Your entered Euqation is:
+            $$  
+               \class{too_lg_eq}{
+                \frac{
+                    {{solution["terms"]["p"]}}
+                }
+                {
+                    (
+                        x + {% if solution["terms"]["a"] < 0 %} ( {{solution["terms"]["a"]}} )
+                        {% else %} {{solution["terms"]["a"]}}
+                        {% endif %} 
+                    )
+                    (
+                        x + {% if solution["terms"]["b"] < 0 %} ( {{solution["terms"]["b"]}} )
+                        {% else %} {{solution["terms"]["b"]}}
+                        {% endif %} 
+                    )
+                }
+
+                +
+
+                \frac{
+                    {% if solution["terms"]["q"] < 0 %} ({{solution["terms"]["q"]}})
+                    {% else %} {{solution["terms"]["q"]}}
+                    {% endif %}
+                }
+                {
+                    (
+                        x + {% if solution["terms"]["b"] < 0 %} ( {{solution["terms"]["b"]}} )
+                        {% else %} {{solution["terms"]["b"]}}
+                        {% endif %} 
+                    )
+                    (
+                        x + {% if solution["terms"]["c"] < 0 %} ( {{solution["terms"]["c"]}} )
+                        {% else %} {{solution["terms"]["c"]}}
+                        {% endif %} 
+                    )
+                }
+
+                +
+
+                \frac{
+                    {% if solution["terms"]["q"] < 0 %} ({{solution["terms"]["q"]}})
+                    {% else %} {{solution["terms"]["q"]}}
+                    {% endif %}
+                }
+                {
+                    (
+                        x + {% if solution["terms"]["b"] < 0 %} ( {{solution["terms"]["b"]}} )
+                        {% else %} {{solution["terms"]["b"]}}
+                        {% endif %} 
+                    )
+                    (
+                        x + {% if solution["terms"]["c"] < 0 %} ( {{solution["terms"]["c"]}} )
+                        {% else %} {{solution["terms"]["c"]}}
+                        {% endif %} 
+                    )
+                }
+                }
+            $$
+        </div>
+
+        <div class="container sol_s4">
+
+            <h4><span class="steps_bullet">Step: 1 - </span>This is type-5 equation: </h4><br>
+
+            $$
+               
+                \text
+                { \color {Blue} Equation Type - 5}
+                
+                $$
+
+
+                $$
+                \class{lg_eq}{
+                \frac{p}
+                {
+                ({\color{DarkGreen} x }
+                + 
+                {\color{Red} a})
+                ({\color{DarkGreen}x }
+                + 
+                {\color{Cyan} b})
+                }
+
+                +
+
+                \frac{q}
+                {
+                ({\color{DarkGreen} x }
+                + 
+                {\color{Cyan} b})
+                ({\color{DarkGreen}x }
+                + 
+                {\color{Green} c})
+                }
+
+                +
+
+                \frac{r}
+                {
+                ({\color{DarkGreen} x }
+                + 
+                {\color{Green} c})
+                ({\color{DarkGreen}x }
+                + 
+                {\color{Red} a})
+                }
+
+                = 0
+                }
+
+                $$
+
+                <br>
+
+                <h4><span class = "steps_bullet">Step: 2 - </span>Identify p, q, r, a, b and c : </h4><br>
+                
+                
+                $$  p = {{solution["terms"]["p"]}} \qquad  a = {{solution["terms"]["a"]}}  $$
+                $$  q = {{solution["terms"]["q"]}} \qquad  b = {{solution["terms"]["b"]}}  $$
+                $$  r = {{solution["terms"]["r"]}} \qquad  c = {{solution["terms"]["c"]}}  $$
+
+                <br>
+
+                <h4><span class = "steps_bullet">Step: 3 - </span>Now value of x will be: </h4><br>
+
+                $$
+                \class{too_lg_eq} {x=
+                \frac{ \text{Each Numerator multiplied by the absent number with sign reversed } }
+                    { \text{Sum of all Numerator} }
+                }
+                $$
+
+                <br>
+
+                $$
+                    x = \frac {
+                        p(-c) + q(-a) + r(-b)
+                    }
+                    { p + q + r}
+                $$
+
+                <br>
+
+                $$
+                  \class{lg_eq} { x = \frac{
+                        ({{solution["terms"]["p"]}})(-({{solution["terms"]["c"]}}))
+                        + ({{solution["terms"]["q"]}})(-({{solution["terms"]["a"]}}))
+                        + ({{solution["terms"]["r"]}})(-({{solution["terms"]["b"]}}))
+                    }
+                    {
+                        {{solution["terms"]["p"]}} + 
+                        {% if solution["terms"]["q"] < 0 %} ({{solution["terms"]["q"]}})
+                        {% else %} {{solution["terms"]["q"]}}
+                        {% endif %} + 
+                        {% if solution["terms"]["r"] < 0 %} ({{solution["terms"]["r"]}})
+                        {% else %} {{solution["terms"]["r"]}}
+                        {% endif %}
+                    } 
+                 }
+                $$
+
+                <br>
+
+                $$
+                 x = \frac{
+                     {{ solution["terms"]["p"] * (-solution["terms"]["c"])}} + 
+                     {% if solution["terms"]["q"] * (-solution["terms"]["a"]) < 0 %} 
+                     ( {{solution["terms"]["q"] * (-solution["terms"]["a"])}} )
+                     {% else %} {{solution["terms"]["q"] * (-solution["terms"]["a"])}}
+                     {% endif %} +
+                     {% if solution["terms"]["r"] * (-solution["terms"]["b"]) < 0 %} 
+                     ( {{solution["terms"]["r"] * (-solution["terms"]["b"])}} )
+                     {% else %} {{solution["terms"]["r"] * (-solution["terms"]["b"])}}
+                     {% endif %}
+                 }
+                 {
+                    {{solution["terms"]["p"] + solution["terms"]["q"] + solution["terms"]["r"]}}
+                 }
+                $$
+
+                <br>
+
+                $$
+                 x = \frac{ {{solution["num"]}} } { {{solution["deno"]}} }
+                $$
+
+                <br>
+
+                {% if sol_exists == "No" %}
+                    <h4>-> Either the given eqation have no solution or infinite solutions</h4>
+                {% endif %}
+
+                {% if sol_exists == "Yes" %}
+                
+                $$
+                    \text{So, the value of x is,} \enspace
+                    {% if solution["count"] == 1 %} {{solution["solution"][0]}} {% endif %}
+                    {% if solution["count"] == 2 %} 
+                    \frac{ {{solution["solution"][0]}} } { {{solution["solution"][1]}} }
+                    {% endif %}
+                $$
+
+                {% endif %}
+
+                
+
+        {% endif %}
+
+
+       </div>
+   
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml-full.min.js" integrity="sha512-PbLRl9V4qEM7j3xggKupLNdcodHT0w+x77S/JoTWxrhPEVZ0NkTPp90bzUeTyFXsBzsaApVOZdCHIzL6o51KiA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    
+    {% endblock %}
+</body>

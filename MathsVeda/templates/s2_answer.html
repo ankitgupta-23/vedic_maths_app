@@ -1,0 +1,414 @@
+{% extends 'base.html' %}
+{% set active_page = 'index' %}
+
+<head>
+    {% block head %}
+    {{ super() }}
+
+    
+
+    <style>
+        body>h1{
+            
+            margin-top: 0.3rem;
+            color: rgb(30, 128, 255);
+            padding-bottom: 5px;
+            border-bottom: 2px solid rgb(16, 148, 67);
+            width: fit-content;
+            font-style: italic;
+            font-family: cursive;
+            margin: 0.2rem auto;
+            
+        }
+
+        body>p{
+            margin-left: 1rem;
+            margin-right: 1rem;
+            padding: 0.25rem;
+        }
+
+        .sol_s2{
+            height: fit-content;
+            text-align: center;
+        }
+
+        h4,h5{
+            
+            padding: 0.3rem;
+            text-align: left;
+            font-size: 1.2em;
+
+        }
+
+        .steps_bullet{
+            color: rgb(52, 164, 255);
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        #arrow_diag{
+            width: 15rem;
+            height: 8rem;
+        }
+
+        #arrow_diag2{
+            width: 20rem;
+            height: 9rem;
+            
+        }
+
+        .res_eq{
+            overflow-x: auto;
+        }
+        
+
+
+    </style>
+    
+    {% endblock %}
+    
+   
+    
+</head>
+
+<body>
+    {% block content %}
+    
+    <h1>Solution</h1>
+
+    
+    {% if size == 9 %}
+    <div class = "sol_s2 s9 container">
+        <h4><span class="steps_bullet">Step: 1 - </span>Make a line under first row: </h4> <br>
+        \begin{vmatrix}
+        {{solution["mat"][0]["a1"]}} & {{solution["mat"][1]["a2"]}} & {{solution["mat"][2]["a3"]}} \\
+        \hline
+        {{solution["mat"][3]["a4"]}} & {{solution["mat"][4]["a5"]}} & {{solution["mat"][5]["a6"]}} \\ 
+        {{solution["mat"][6]["a7"]}} & {{solution["mat"][7]["a8"]}} & {{solution["mat"][8]["a9"]}}
+        \end{vmatrix}
+        <br />
+
+        <h4><span class="steps_bullet">Step: 2 - </span> Now from lower 2 rows make 3 Determinants of size 2 x 2 in the order of: </h4><br />
+        <h5>(i) first column and second column (D1)</h5><br />
+        \( D1 = \begin{vmatrix}
+        {{solution["mat"][3]["a4"]}} & {{solution["mat"][4]["a5"]}}\\
+        {{solution["mat"][6]["a7"]}} & {{solution["mat"][7]["a8"]}}\\
+        \end{vmatrix}\)
+
+        <br/>
+        <br />
+        <h5>(i) first column and third column (D2)</h5><br />
+        \( D2 = \begin{vmatrix}
+        {{solution["mat"][3]["a4"]}} & {{solution["mat"][5]["a6"]}}\\
+        {{solution["mat"][6]["a7"]}} & {{solution["mat"][8]["a9"]}}\\
+        \end{vmatrix}\)
+
+        <br/>
+        <br />
+        <h5>(i) second column and third column (D3)</h5><br />
+        \( D3 = \begin{vmatrix}
+        {{solution["mat"][4]["a5"]}} & {{solution["mat"][5]["a6"]}}\\
+        {{solution["mat"][7]["a8"]}} & {{solution["mat"][8]["a9"]}}\\
+        \end{vmatrix}\)
+
+        <br/>
+        <br/>
+        <h4><span class="steps_bullet">Step: 3 - </span> Solve D1, D2 and D3</h4><br />
+
+        \( D1 = \{({{solution["mat"][3]["a4"]}}) \times ({{solution["mat"][7]["a8"]}})\} - \{({{solution["mat"][6]["a7"]}}) \times ({{solution["mat"][4]["a5"]}})\} = {{solution["d1"]}}
+        \)
+
+        <br /><br />
+
+        \( D2 = \{({{solution["mat"][3]["a4"]}}) \times ({{solution["mat"][8]["a9"]}})\} - \{({{solution["mat"][6]["a7"]}}) \times ({{solution["mat"][5]["a6"]}})\} = {{solution["d2"]}}
+        \)
+
+        <br /><br />
+
+        \( D3 = \{({{solution["mat"][4]["a5"]}}) \times ({{solution["mat"][8]["a9"]}})\} - \{({{solution["mat"][6]["a7"]}}) \times ({{solution["mat"][7]["a8"]}})\} = {{solution["d3"]}}
+        \)
+
+        <br /> <br />
+
+        <h4><span class="steps_bullet">Step: 3 - </span>Now place D1, D2, D3 and elements in the first row in the following order: </h4> <br />
+
+        \( {{solution["mat"][0]["a1"]}} \qquad \qquad \qquad {{solution["mat"][1]["a2"]}} \qquad \qquad \qquad {{solution["mat"][2]["a3"]}}
+        \)
+
+        <br />
+
+        <img src="{{url_for('static', filename = 'det_9_diagram.svg')}}" id = "arrow_diag" alt="arrow_diagram">
+
+        <br />
+        \(  {{solution["d1"]}} \qquad \qquad \qquad {{solution["d2"]}}  \qquad \qquad \qquad  {{solution["d3"]}}
+        \)
+
+        <br>
+
+        
+        <br>
+        \(  (+) \qquad \qquad \quad (-) \qquad \qquad \quad (+)
+        \)
+
+        <br/>
+        <br/>
+
+        <h4><span class="steps_bullet">Step: 4 - </span>Now Final answer is calculated as: </h4><br/>
+        $$
+        Answer = ({{solution["mat"][0]["a1"]}} \times {{solution["d3"]}})
+         - ({{solution["mat"][1]["a2"]}} \times {{solution["d2"]}})
+          + ({{solution["mat"][2]["a3"]}} \times {{solution["d1"]}})
+        
+        $$
+
+        $$
+        = ({{solution["mat"][0]["a1"]
+         * solution["d3"]}}) - ({{solution["mat"][1]["a2"] * 
+         solution["d2"]}}) + ({{solution["mat"][2]["a3"] * 
+         solution["d1"]}})
+        $$
+
+        $$
+        = {{solution["answer"]}}
+        $$
+        
+    </div>
+    
+    {% endif %}
+
+    {% if size == 16 %}
+    <div class = "sol_s2 s16 container">
+        
+        <h4><span class="steps_bullet">Step: 1 - </span>Make a line below second row that divides the determinant into two halves: </h4> <br>
+        \begin{vmatrix}
+        {{solution["mat"][0]["a1"]}} & {{solution["mat"][1]["a2"]}} & {{solution["mat"][2]["a3"]}} & {{solution["mat"][3]["a4"]}} \\
+        
+        {{solution["mat"][4]["a5"]}} & {{solution["mat"][5]["a6"]}} & {{solution["mat"][6]["a7"]}} & {{solution["mat"][7]["a8"]}}\\
+        \hline
+        {{solution["mat"][8]["a9"]}} & {{solution["mat"][9]["a10"]}} & {{solution["mat"][10]["a11"]}} & {{solution["mat"][11]["a12"]}} \\
+
+        {{solution["mat"][12]["a13"]}} & {{solution["mat"][13]["a14"]}} & {{solution["mat"][14]["a15"]}} & {{solution["mat"][15]["a16"]}}
+        \end{vmatrix}
+        <br />
+
+        <h4><span class="steps_bullet">Step: 2 - </span> Now solve Determinants of size 2 x 2 from upper half and lower half: </h4><br />
+        <h5>(i) Upper Half</h5><br />
+        \( D1 = \begin{vmatrix}
+        {{solution["mat"][0]["a1"]}} & {{solution["mat"][1]["a2"]}}\\
+        {{solution["mat"][4]["a5"]}} & {{solution["mat"][5]["a6"]}}\\
+        \end{vmatrix}\)
+
+        <br/><br/>
+
+        \( D2 = \begin{vmatrix}
+        {{solution["mat"][0]["a1"]}} & {{solution["mat"][2]["a3"]}}\\
+        {{solution["mat"][4]["a5"]}} & {{solution["mat"][6]["a7"]}}\\
+        \end{vmatrix}\)
+
+        <br/> <br />
+
+        \( D3 = \begin{vmatrix}
+        {{solution["mat"][0]["a1"]}} & {{solution["mat"][3]["a4"]}}\\
+        {{solution["mat"][4]["a5"]}} & {{solution["mat"][7]["a8"]}}\\
+        \end{vmatrix}\)
+
+        <br/><br />
+
+        \( D4 = \begin{vmatrix}
+        {{solution["mat"][1]["a2"]}} & {{solution["mat"][2]["a3"]}}\\
+        {{solution["mat"][5]["a6"]}} & {{solution["mat"][6]["a7"]}}\\
+        \end{vmatrix}\)
+
+        <br /> <br />
+
+        \( D5 = \begin{vmatrix}
+        {{solution["mat"][1]["a2"]}} & {{solution["mat"][3]["a4"]}}\\
+        {{solution["mat"][5]["a6"]}} & {{solution["mat"][7]["a8"]}}\\
+        \end{vmatrix}\)
+
+        <br><br>
+
+        \( D6 = \begin{vmatrix}
+        {{solution["mat"][2]["a3"]}} & {{solution["mat"][3]["a4"]}}\\
+        {{solution["mat"][6]["a7"]}} & {{solution["mat"][7]["a8"]}}\\
+        \end{vmatrix}\)
+
+        <br><br>
+
+        <h5>(ii) Lower Half</h5><br />
+            
+        \( D7 = \begin{vmatrix}
+        {{solution["mat"][8]["a9"]}} & {{solution["mat"][9]["a10"]}}\\
+        {{solution["mat"][12]["a13"]}} & {{solution["mat"][13]["a14"]}}\\
+        \end{vmatrix}\)
+
+        <br/><br/>
+
+        \( D8 = \begin{vmatrix}
+        {{solution["mat"][8]["a9"]}} & {{solution["mat"][10]["a11"]}}\\
+        {{solution["mat"][12]["a13"]}} & {{solution["mat"][14]["a15"]}}\\
+        \end{vmatrix}\)
+
+        <br/> <br />
+
+        \( D9 = \begin{vmatrix}
+        {{solution["mat"][8]["a9"]}} & {{solution["mat"][11]["a12"]}}\\
+        {{solution["mat"][12]["a13"]}} & {{solution["mat"][15]["a16"]}}\\
+        \end{vmatrix}\)
+
+        <br/><br />
+
+        \( D10 = \begin{vmatrix}
+        {{solution["mat"][9]["a10"]}} & {{solution["mat"][10]["a11"]}}\\
+        {{solution["mat"][13]["a14"]}} & {{solution["mat"][14]["a15"]}}\\
+        \end{vmatrix}\)
+
+        <br /> <br />
+
+        \( D11 = \begin{vmatrix}
+        {{solution["mat"][9]["a10"]}} & {{solution["mat"][11]["a12"]}}\\
+        {{solution["mat"][13]["a14"]}} & {{solution["mat"][15]["a16"]}}\\
+        \end{vmatrix}\)
+
+        <br><br>
+
+        \( D12 = \begin{vmatrix}
+        {{solution["mat"][10]["a11"]}} & {{solution["mat"][11]["a12"]}}\\
+        {{solution["mat"][14]["a15"]}} & {{solution["mat"][15]["a16"]}}\\
+        \end{vmatrix}\)
+
+        <br><br>
+
+        <h4><span class="steps_bullet">Step: 3 - </span> Solve all 2 x 2 Determinants: </h4><br />
+
+        \( D1 = \{({{solution["mat"][0]["a1"]}}) \times ({{solution["mat"][5]["a6"]}})\} - \{({{solution["mat"][4]["a5"]}}) \times ({{solution["mat"][1]["a2"]}})\} = {{solution["d1"]}}
+        \)
+
+        <br /><br />
+
+        \( D2 = \{({{solution["mat"][0]["a1"]}}) \times ({{solution["mat"][6]["a7"]}})\} - \{({{solution["mat"][4]["a5"]}}) \times ({{solution["mat"][2]["a3"]}})\} = {{solution["d2"]}}
+        \)
+
+        <br /><br />
+
+        \( D3 = \{({{solution["mat"][0]["a1"]}}) \times ({{solution["mat"][7]["a8"]}})\} - \{({{solution["mat"][4]["a5"]}}) \times ({{solution["mat"][3]["a4"]}})\} = {{solution["d3"]}}
+        \)
+
+        <br /> <br />
+
+        \( D4 = \{({{solution["mat"][0]["a1"]}}) \times ({{solution["mat"][7]["a8"]}})\} - \{({{solution["mat"][4]["a5"]}}) \times ({{solution["mat"][3]["a4"]}})\} = {{solution["d4"]}}
+        \)
+
+        <br /> <br />
+        \( D5 = \{({{solution["mat"][0]["a1"]}}) \times ({{solution["mat"][7]["a8"]}})\} - \{({{solution["mat"][4]["a5"]}}) \times ({{solution["mat"][3]["a4"]}})\} = {{solution["d5"]}}
+        \)
+
+        <br /> <br />
+        \( D6 = \{({{solution["mat"][0]["a1"]}}) \times ({{solution["mat"][7]["a8"]}})\} - \{({{solution["mat"][4]["a5"]}}) \times ({{solution["mat"][3]["a4"]}})\} = {{solution["d6"]}}
+        \)
+
+        <br /> <br />
+        \( D7 = \{({{solution["mat"][0]["a1"]}}) \times ({{solution["mat"][7]["a8"]}})\} - \{({{solution["mat"][4]["a5"]}}) \times ({{solution["mat"][3]["a4"]}})\} = {{solution["d7"]}}
+        \)
+
+        <br /> <br />
+        \( D8 = \{({{solution["mat"][0]["a1"]}}) \times ({{solution["mat"][7]["a8"]}})\} - \{({{solution["mat"][4]["a5"]}}) \times ({{solution["mat"][3]["a4"]}})\} = {{solution["d8"]}}
+        \)
+
+        <br /> <br />
+        \( D9 = \{({{solution["mat"][0]["a1"]}}) \times ({{solution["mat"][7]["a8"]}})\} - \{({{solution["mat"][4]["a5"]}}) \times ({{solution["mat"][3]["a4"]}})\} = {{solution["d9"]}}
+        \)
+
+        <br /> <br />
+        \( D10 = \{({{solution["mat"][0]["a1"]}}) \times ({{solution["mat"][7]["a8"]}})\} - \{({{solution["mat"][4]["a5"]}}) \times ({{solution["mat"][3]["a4"]}})\} = {{solution["d10"]}}
+        \)
+
+        <br /> <br />
+        \( D11 = \{({{solution["mat"][0]["a1"]}}) \times ({{solution["mat"][7]["a8"]}})\} - \{({{solution["mat"][4]["a5"]}}) \times ({{solution["mat"][3]["a4"]}})\} = {{solution["d11"]}}
+        \)
+
+        <br /> <br />
+        \( D12 = \{({{solution["mat"][0]["a1"]}}) \times ({{solution["mat"][7]["a8"]}})\} - \{({{solution["mat"][4]["a5"]}}) \times ({{solution["mat"][3]["a4"]}})\} = {{solution["d12"]}}
+        \)
+
+        <br /> <br />
+
+        <h4><span class="steps_bullet">Step: 3 - </span>Now place all solved values of 2 x 2 elements in the following order: </h4> <br />
+
+        \( D1 \qquad D2 \qquad  D3 \qquad D4 \qquad D5 \qquad D6
+        \)
+
+        <br />
+
+        <img src="{{url_for('static', filename = 'det_16_diagram.svg')}}" id = "arrow_diag2" alt="arrow_diagram">
+
+        <br />
+        \( D7 \qquad D8 \qquad  D9 \qquad D10 \qquad D11 \qquad D12
+        \)
+
+        <br>
+
+        
+        <br>
+        \(  (+) \qquad (-) \qquad (+) \qquad (+) \qquad (-) \qquad (+)
+        \)
+
+        <br/>
+        <br/>
+
+        
+
+        <h4><span class="steps_bullet">Step: 4 - </span>Now Final answer is calculated as: </h4><br/>
+
+       
+       
+        
+        <div class="res_eq">
+
+            $$ 
+            Answer = (D1 \times D12) - (D2 \times D11) + 
+            (D3 \times D10) + (D4 \times D9) - 
+            (D5 \times D8) + (D6 \times D7)
+
+            $$
+
+            $$
+            \qquad \quad \enspace = (({{solution["d1"]}}) \times 
+            ({{solution["d12"]}})) - (({{solution["d2"]}}) \times
+             ({{solution["d11"]}})) + (({{solution["d3"]}}) \times 
+             ({{solution["d10"]}})) + (({{solution["d4"]}}) \times 
+             ({{solution["d9"]}})) - (({{solution["d5"]}}) \times 
+             ({{solution["d8"]}})) + (({{solution["d6"]}}) \times 
+             ({{solution["d7"]}}))
+
+             $$
+
+             $$
+            \qquad \quad \enspace = ({{solution["d1"] * solution["d12"]}}) - 
+            ({{solution["d2"] * solution["d11"]}}) + ({{solution["d3"] *
+             solution["d10"]}}) + ({{solution["d4"] * solution["d9"]}})
+              - ({{solution["d5"] * solution["d8"]}}) + ({{solution["d6"] *
+               solution["d7"]}})
+
+            $$
+
+            $$
+            \qquad \quad \enspace = {{solution["answer"]}}  
+            
+            $$
+        
+        </div>
+
+       
+
+
+    </div>
+    {% endif %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml-full.min.js" integrity="sha512-PbLRl9V4qEM7j3xggKupLNdcodHT0w+x77S/JoTWxrhPEVZ0NkTPp90bzUeTyFXsBzsaApVOZdCHIzL6o51KiA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!--
+        <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    -->
+
+    {% endblock %}
+</body>

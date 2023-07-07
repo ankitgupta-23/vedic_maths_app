@@ -1,0 +1,334 @@
+{% extends 'base.html' %}
+{% set active_page = 'index' %}
+
+<head>
+    {% block head %}
+    {{ super() }}
+
+    <style>
+        body>h1{
+            
+            margin-top: 0.3rem;
+            color: rgb(30, 128, 255);
+            padding-bottom: 5px;
+            border-bottom: 2px solid rgb(16, 148, 67);
+            width: fit-content;
+            font-style: italic;
+            font-family: cursive;
+            margin: 0.2rem auto;
+            
+        }
+
+        body>p{
+            margin-left: 1rem;
+            margin-right: 1rem;
+            padding: 0.25rem;
+        }
+
+
+        .steps_bullet{
+            color: rgb(52, 164, 255);
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .row_reject{
+            color: red;
+            text-decoration-line: line-through;
+        }
+
+        .col_reject{
+            color: red;
+        }
+
+        
+    
+    </style>
+    {% endblock %}
+</head>
+
+<body>
+    {% block content%}
+
+    <h1>Solution</h1>
+
+    
+    <div class = "sol_s3 container">
+
+        <h4><span class="steps_bullet">Step: 1 - </span>Find the determinant of A:</h4><br>
+
+        $$
+        \begin{vmatrix} A \end{vmatrix}  = 
+            \begin{vmatrix}
+            {{solution["mat"][0]["a1"]}} & {{solution["mat"][1]["a2"]}} & {{solution["mat"][2]["a3"]}} \\
+            {{solution["mat"][3]["a4"]}} & {{solution["mat"][4]["a5"]}} & {{solution["mat"][5]["a6"]}} \\
+            {{solution["mat"][6]["a7"]}} & {{solution["mat"][7]["a8"]}} & {{solution["mat"][8]["a9"]}}
+            \end{vmatrix}
+
+        $$
+
+
+        $$
+             \href{ {{url_for('main.calc', p = ['s-2'])}} } {\begin{vmatrix} A \end{vmatrix} = {{solution["detA"]}} }
+        $$
+
+        $$
+        \href { {{url_for('main.calc', p = ['s-2'])}} } { \text {-> know how to solve determinant in vedic maths} }
+        $$
+
+        {% if sol_yes == "No" %}
+
+        <h4 steps_bullet>-> Since determinant value is zero, Inverse does not exists </h4>
+
+        {% endif %}
+        <br>
+
+        {% if sol_yes == "Yes" %}
+
+        <h4><span class="steps_bullet">Step: 2 - </span>Write the Matrix as it is: </h4> <br>
+        $$ A = \begin{bmatrix}
+        {{solution["mat"][0]["a1"]}} & {{solution["mat"][1]["a2"]}} & {{solution["mat"][2]["a3"]}} \\
+        {{solution["mat"][3]["a4"]}} & {{solution["mat"][4]["a5"]}} & {{solution["mat"][5]["a6"]}} \\ 
+        {{solution["mat"][6]["a7"]}} & {{solution["mat"][7]["a8"]}} & {{solution["mat"][8]["a9"]}}
+        \end{bmatrix} $$
+        <br /><br>
+
+        <h4><span class="steps_bullet">Step: 3 - </span>Write all the elements of first column and second column after third column (i.e. Repeat first and second column): </h4> <br>
+        \begin{bmatrix}
+        {{solution["mat"][0]["a1"]}} & {{solution["mat"][1]["a2"]}} & {{solution["mat"][2]["a3"]}} & \color{red} { {{solution["mat"][0]["a1"]}} } & \color{red} { {{solution["mat"][1]["a2"]}} } \\
+        {{solution["mat"][3]["a4"]}} & {{solution["mat"][4]["a5"]}} & {{solution["mat"][5]["a6"]}} & \color{red} { {{solution["mat"][3]["a4"]}} } & \color{red} { {{solution["mat"][4]["a5"]}} } \\
+        {{solution["mat"][6]["a7"]}} & {{solution["mat"][7]["a8"]}} & {{solution["mat"][8]["a9"]}} & \color{red} { {{solution["mat"][6]["a7"]}} } & \color{red} { {{solution["mat"][7]["a8"]}} }
+        \end{bmatrix}
+
+        <br><br>
+
+        <h4><span class="steps_bullet">Step: 4 - </span>Now, write all the elements of first row and second row after third row from the matrix obtained in step 2:</h4> <br>
+        \begin{bmatrix}
+        {{solution["mat"][0]["a1"]}} & {{solution["mat"][1]["a2"]}} & {{solution["mat"][2]["a3"]}} & {{solution["mat"][0]["a1"]}} &  {{solution["mat"][1]["a2"]}}  \\
+        {{solution["mat"][3]["a4"]}} & {{solution["mat"][4]["a5"]}} & {{solution["mat"][5]["a6"]}} & {{solution["mat"][3]["a4"]}} &  {{solution["mat"][4]["a5"]}}  \\
+        {{solution["mat"][6]["a7"]}} & {{solution["mat"][7]["a8"]}} & {{solution["mat"][8]["a9"]}} & {{solution["mat"][6]["a7"]}} &  {{solution["mat"][7]["a8"]}}   \\
+        \color{blue} { {{solution["mat"][0]["a1"]}} } & \color{blue} { {{solution["mat"][1]["a2"]}} } & \color{blue} { {{solution["mat"][2]["a3"]}} } & \color{blue} { {{solution["mat"][0]["a1"]}} } &  \color{blue} { {{solution["mat"][1]["a2"]}} }  \\
+        \color{blue} { {{solution["mat"][3]["a4"]}} } & \color{blue} { {{solution["mat"][4]["a5"]}} } & \color{blue} { {{solution["mat"][5]["a6"]}} } & \color{blue} { {{solution["mat"][3]["a4"]}} } &  \color{blue} { {{solution["mat"][4]["a5"]}} } 
+        \end{bmatrix}
+
+        <br><br>
+
+        <h4><span class="steps_bullet">Step: 5 - </span>Eliminate the first row and first column in the matrix obtained in step 3: </h4> <br>
+
+        \begin{bmatrix}
+        \cancel { \class{col_reject} { {{solution["mat"][0]["a1"]}} } } & \cancel { \class{row_reject} { {{solution["mat"][1]["a2"]}} } } & \cancel{ \class{row_reject} { {{solution["mat"][2]["a3"]}} } }  & \cancel{ \class{row_reject} { {{solution["mat"][0]["a1"]}} } }  &  \cancel{ \class{row_reject} { {{solution["mat"][1]["a2"]}} } }  \\
+        \cancel { \class{col_reject} { {{solution["mat"][3]["a4"]}} } } & {{solution["mat"][4]["a5"]}} & {{solution["mat"][5]["a6"]}} & {{solution["mat"][3]["a4"]}} &  {{solution["mat"][4]["a5"]}}  \\
+        \cancel { \class{col_reject} { {{solution["mat"][6]["a7"]}} } } & {{solution["mat"][7]["a8"]}} & {{solution["mat"][8]["a9"]}} & {{solution["mat"][6]["a7"]}} &  {{solution["mat"][7]["a8"]}}   \\
+        \cancel { \class{col_reject} { {{solution["mat"][0]["a1"]}} } } & {{solution["mat"][1]["a2"]}} & {{solution["mat"][2]["a3"]}} & {{solution["mat"][0]["a1"]}} &  {{solution["mat"][1]["a2"]}}  \\
+        \cancel { \class{col_reject} { {{solution["mat"][3]["a4"]}} } } & {{solution["mat"][4]["a5"]}} & {{solution["mat"][5]["a6"]}} & {{solution["mat"][3]["a4"]}} &  {{solution["mat"][4]["a5"]}} 
+        \end{bmatrix}
+        <br><br>
+
+        <h4>The resultant matrix will be: </h4><br>
+        \begin{bmatrix}
+        {{solution["mat"][4]["a5"]}} & {{solution["mat"][5]["a6"]}} & {{solution["mat"][3]["a4"]}} &  {{solution["mat"][4]["a5"]}}  \\
+        {{solution["mat"][7]["a8"]}} & {{solution["mat"][8]["a9"]}} & {{solution["mat"][6]["a7"]}} &  {{solution["mat"][7]["a8"]}}   \\
+        {{solution["mat"][1]["a2"]}} & {{solution["mat"][2]["a3"]}} & {{solution["mat"][0]["a1"]}} &  {{solution["mat"][1]["a2"]}}  \\
+        {{solution["mat"][4]["a5"]}} & {{solution["mat"][5]["a6"]}} & {{solution["mat"][3]["a4"]}} &  {{solution["mat"][4]["a5"]}} 
+        \end{bmatrix}
+
+        <br><br>
+
+        <h4>Now solve as 2 x 2 determinant column wise and write the results in a matrix row-wise: </h4><br><br>
+
+        \begin{bmatrix}
+        {{solution["mat"][4]["a5"]}} & {{solution["mat"][5]["a6"]}} & {{solution["mat"][3]["a4"]}} &  {{solution["mat"][4]["a5"]}}  \\
+        {{solution["mat"][7]["a8"]}} & {{solution["mat"][8]["a9"]}} & {{solution["mat"][6]["a7"]}} &  {{solution["mat"][7]["a8"]}}   \\
+        {{solution["mat"][1]["a2"]}} & {{solution["mat"][2]["a3"]}} & {{solution["mat"][0]["a1"]}} &  {{solution["mat"][1]["a2"]}}  \\
+        {{solution["mat"][4]["a5"]}} & {{solution["mat"][5]["a6"]}} & {{solution["mat"][3]["a4"]}} &  {{solution["mat"][4]["a5"]}} 
+        \end{bmatrix}
+
+ 
+        $$   a11 =  
+                \begin{vmatrix}
+                {{solution["mat"][4]["a5"]}} &  {{solution["mat"][5]["a6"]}}\\
+                {{solution["mat"][7]["a8"]}} & {{solution["mat"][8]["a9"]}}
+                \end{vmatrix}
+                = {{solution["adjA"][0]}} 
+
+        $$
+
+        $$
+
+            a12 =  
+                \begin{vmatrix}
+                {{solution["mat"][7]["a8"]}} & {{solution["mat"][8]["a9"]}} \\
+                {{solution["mat"][1]["a2"]}} & {{solution["mat"][2]["a3"]}}
+                \end{vmatrix}
+                = {{solution["adjA"][1]}}
+
+        $$
+
+        
+
+        $$
+            a13 =  
+                    \begin{vmatrix}
+                    {{solution["mat"][1]["a2"]}} & {{solution["mat"][2]["a3"]}} \\
+                    {{solution["mat"][4]["a5"]}} & {{solution["mat"][5]["a6"]}}
+                    \end{vmatrix}
+                    = {{solution["adjA"][2]}}
+
+        $$
+
+            $$   a21 =  
+            \begin{vmatrix}
+            {{solution["mat"][5]["a6"]}} & {{solution["mat"][3]["a4"]}}\\
+            {{solution["mat"][8]["a9"]}} & {{solution["mat"][6]["a7"]}}
+            \end{vmatrix}
+            = {{solution["adjA"][3]}} 
+
+        $$
+
+        $$
+
+            a22 =  
+                \begin{vmatrix}
+                {{solution["mat"][8]["a9"]}} & {{solution["mat"][6]["a7"]}} \\
+                {{solution["mat"][2]["a3"]}} & {{solution["mat"][0]["a1"]}}
+                \end{vmatrix}
+                = {{solution["adjA"][4]}}
+
+        $$
+
+
+
+        $$
+            a23 =  
+                    \begin{vmatrix}
+                    {{solution["mat"][2]["a3"]}} & {{solution["mat"][0]["a1"]}} \\
+                    {{solution["mat"][5]["a6"]}} & {{solution["mat"][3]["a4"]}}
+                    \end{vmatrix}
+                    = {{solution["adjA"][5]}}
+
+        $$
+
+        $$   a31 =  
+            \begin{vmatrix}
+            {{solution["mat"][3]["a4"]}} &  {{solution["mat"][4]["a5"]}}\\
+            {{solution["mat"][6]["a7"]}} &  {{solution["mat"][7]["a8"]}}
+            \end{vmatrix}
+            = {{solution["adjA"][6]}} 
+
+        $$
+
+        $$
+
+            a32 =  
+                \begin{vmatrix}
+                {{solution["mat"][6]["a7"]}} &  {{solution["mat"][7]["a8"]}} \\
+                {{solution["mat"][0]["a1"]}} &  {{solution["mat"][1]["a2"]}}
+                \end{vmatrix}
+                = {{solution["adjA"][7]}}
+
+        $$
+
+
+
+        $$
+            a33 =  
+                    \begin{vmatrix}
+                    {{solution["mat"][0]["a1"]}} &  {{solution["mat"][1]["a2"]}} \\
+                    {{solution["mat"][3]["a4"]}} &  {{solution["mat"][4]["a5"]}}
+                    \end{vmatrix}
+                    = {{solution["adjA"][8]}}
+
+        $$
+
+        <h4>The matrix obtained from step 4 is the adjoint of original matrix (Adj(A)): </h4><br>
+
+        $$
+            Adj(A) = 
+            \begin{bmatrix}
+            a11 & a12 & a13 \\ a21 & a22 & a23 \\ a31 & a32 & a33
+            \end{bmatrix}
+        $$
+        <br>
+        $$
+            Adj(A) = 
+            \begin{bmatrix}
+            {{solution["adjA"][0]}} & {{solution["adjA"][1]}} & {{solution["adjA"][2]}} \\
+            {{solution["adjA"][3]}} & {{solution["adjA"][4]}} & {{solution["adjA"][5]}} \\
+            {{solution["adjA"][6]}} & {{solution["adjA"][7]}} & {{solution["adjA"][8]}}
+            \end{bmatrix}
+        $$
+        <br>
+        
+
+        <h4><span class = "steps_bullet">Step: 6 - </span>Find the Inverse using formula: </h4><br>
+
+        $$
+        A^{-1} = \frac{adj(A)}{ \begin{vmatrix} A \end{vmatrix} }
+        $$
+        <br>
+
+        $$
+        A^{-1} = \frac{1}{ {{solution["detA"]}} } \enspace
+
+        \begin{bmatrix}
+            {{solution["adjA"][0]}} & {{solution["adjA"][1]}} & {{solution["adjA"][2]}} \\
+            {{solution["adjA"][3]}} & {{solution["adjA"][4]}} & {{solution["adjA"][5]}} \\
+            {{solution["adjA"][6]}} & {{solution["adjA"][7]}} & {{solution["adjA"][8]}}
+        \end{bmatrix}
+
+        $$
+
+        <br>
+
+        $$
+        A^{-1} = 
+        \begin{bmatrix}
+
+        <!-- first row of inverse matrix -->
+
+        {% if solution["count"][0] == 1 %} {{solution["inverseA"][0]["num"]}} & {% endif %}
+        {% if solution["count"][0] == 2 %} \frac{ {{solution["inverseA"][0]["num"]}} }{ {{solution["inverseA"][0]["deno"]}} } & {% endif %}
+
+        {% if solution["count"][1] == 1 %} {{solution["inverseA"][1]["num"]}} & {% endif %}
+        {% if solution["count"][1] == 2 %} \frac{ {{solution["inverseA"][1]["num"]}} }{ {{solution["inverseA"][1]["deno"]}} } & {% endif %}
+
+        {% if solution["count"][2] == 1 %} {{solution["inverseA"][2]["num"]}} \\ {% endif %}
+        {% if solution["count"][2] == 2 %} \frac{ {{solution["inverseA"][2]["num"]}} }{ {{solution["inverseA"][2]["deno"]}} } \\ {% endif %}
+        
+        <!-- second row of inverse matrix -->
+
+        {% if solution["count"][3] == 1 %} {{solution["inverseA"][3]["num"]}} & {% endif %}
+        {% if solution["count"][3] == 2 %} \frac{ {{solution["inverseA"][3]["num"]}} }{ {{solution["inverseA"][3]["deno"]}} } & {% endif %}
+
+        {% if solution["count"][4] == 1 %} {{solution["inverseA"][4]["num"]}} & {% endif %}
+        {% if solution["count"][4] == 2 %} \frac{ {{solution["inverseA"][4]["num"]}} }{ {{solution["inverseA"][4]["deno"]}} } & {% endif %}
+
+        {% if solution["count"][5] == 1 %} {{solution["inverseA"][5]["num"]}} \\ {% endif %}
+        {% if solution["count"][5] == 2 %} \frac{ {{solution["inverseA"][5]["num"]}} }{ {{solution["inverseA"][5]["deno"]}} } \\ {% endif %}
+
+        <!-- Third row of inverse matrix-->
+
+        {% if solution["count"][6] == 1 %} {{solution["inverseA"][6]["num"]}} & {% endif %}
+        {% if solution["count"][6] == 2 %} \frac{ {{solution["inverseA"][6]["num"]}} }{ {{solution["inverseA"][6]["deno"]}} } & {% endif %}
+
+        {% if solution["count"][7] == 1 %} {{solution["inverseA"][7]["num"]}} & {% endif %}
+        {% if solution["count"][7] == 2 %} \frac{ {{solution["inverseA"][7]["num"]}} }{ {{solution["inverseA"][7]["deno"]}} } & {% endif %}
+
+        {% if solution["count"][8] == 1 %} {{solution["inverseA"][8]["num"]}}  {% endif %}
+        {% if solution["count"][8] == 2 %} \frac{ {{solution["inverseA"][8]["num"]}} }{ {{solution["inverseA"][8]["deno"]}} } {% endif %}
+        \end{bmatrix}
+        $$
+
+        {% endif %}
+
+    </div>
+
+    
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml-full.min.js" integrity="sha512-PbLRl9V4qEM7j3xggKupLNdcodHT0w+x77S/JoTWxrhPEVZ0NkTPp90bzUeTyFXsBzsaApVOZdCHIzL6o51KiA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    {% endblock %}
+
+</body>

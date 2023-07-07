@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+<head>
+    {% block head %} 
+    {{ super() }}
+    <style>
+        body>h1{
+            margin-left: 0.80rem;
+            margin-top: 0.3rem;
+            padding: 0.25rem;
+            color: red;
+
+        }
+
+        body p{
+            margin-left: 1rem;
+            margin-right: 1rem;
+            padding: 0.25rem;
+        }
+
+        .m_size{
+            text-align: center;
+            
+            padding: 0.25 rem;
+           
+            margin-bottom: 20px;
+        }
+
+        #p_label{
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .m4{
+            width: fit-content;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 0.1rem 0.1rem;
+            border: 1px solid green;
+            margin: 0 auto;
+        }
+
+        .m3{
+            width: fit-content;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.1rem 0.1rem;
+            border: 1px solid green;
+            margin: 0 auto;
+        }
+
+        .hide_div{
+            display: none;
+        }
+
+
+        .rows{
+            border: 1px solid black;
+            width: fit-content;
+        }
+
+        input[type = "number"]{
+            font-size: 1.4em;
+            width: 75px;
+            height: 40px;
+            border: none;
+            text-align: center;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        
+        input[type=number] {
+        -moz-appearance: textfield;
+        }
+
+        #get_sol_btn{
+            display: block;
+            margin: 0 auto;
+            width: fit-content;
+            height: 50px;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            background-color: crimson;
+            color: white;
+            border: 1px solid rgb(175, 60, 83);
+            border-radius: 12px;
+        }
+
+        #get_sol_btn:hover{
+            color: black;
+            background-color: lightgreen;
+            box-shadow: rgb(81, 107, 81) 5px 6px 7px;
+        }
+
+        #error_message{
+            width: fit-content;
+            margin: 0 auto;
+            margin-top: 20px;
+            padding: 0.3rem;
+            border: 1px solid green;
+            -webkit-animation: cssAnimation 4s forwards; 
+            animation: cssAnimation 4s forwards;
+        }
+
+        @keyframes cssAnimation {
+            0%   {opacity: 1;}
+            90%  {opacity: 1;}
+            100% {opacity: 0;}
+        }
+        
+        @-webkit-keyframes cssAnimation {
+            0%   {opacity: 1;}
+            90%  {opacity: 1;}
+            100% {opacity: 0;}
+        }
+
+    </style>
+
+    {% endblock %}
+</head>
+
+<body>
+    {% block content %}
+
+    <h1>Solving Determinant</h1>
+    <div id="form_matrix">
+        <div class = "m_size">
+            <p id = "p_label">Select Determinant Size: </p>
+            <input type="radio" value = "3" name = "m_size" checked>
+            <label for="3">3 x 3</label>&nbsp;&nbsp;&nbsp;
+            <input type="radio" value = "4" name = "m_size">
+            <label for="4">4 x 4</label>
+        </div>
+
+            <form action="/calc?p=s-2-que", method="POST">
+               <div class="m_input_grid m3">
+                    <div class="rows"><input type="number" class = "cells" name = "a1"></div>
+                    <div class="rows"><input type="number" class = "cells" name = "a2"></div>
+                    <div class="rows"><input type="number" class = "cells" name = "a3"></div>
+                    <div class="rows"><input type="number" class = "cells" name = "a4"></div>
+                    <div class="rows"><input type="number" class = "cells" name = "a5"></div>
+                    <div class="rows"><input type="number" class = "cells" name = "a6"></div>
+                    <div class="rows"><input type="number" class = "cells" name = "a7"></div>
+                    <div class="rows"><input type="number" class = "cells" name = "a8"></div>
+                    <div class="rows"><input type="number" class = "cells" name = "a9"></div>
+                    <div class="rows hide hide_div"><input type="number" class = "cells" name = "a10"></div>
+                    <div class="rows hide hide_div"><input type="number" class = "cells" name = "a11"></div>
+                    <div class="rows hide hide_div"><input type="number" class = "cells" name = "a12"></div>
+                    <div class="rows hide hide_div"><input type="number" class = "cells" name = "a13"></div>
+                    <div class="rows hide hide_div"><input type="number" class = "cells" name = "a14"></div>
+                    <div class="rows hide hide_div"><input type="number" class = "cells" name = "a15"></div>
+                    <div class="rows hide hide_div"><input type="number" class = "cells" name = "a16"></div>
+                </div>
+                <input id = "get_sol_btn" type="submit" value = "Find Solution">
+            </form>
+            {% if message %} 
+            <div id = "error_message" class = "alert alert-info">
+            <i class="fa-solid fa-circle-info fa-bounce"></i>
+            {{message[0]}}<br>
+            {{message[1]}}</div>
+            
+            {% endif %}
+        </div>
+
+    <script>
+        var checked_size = document.querySelectorAll('input[name = "m_size"]')
+
+        checked_size[0].addEventListener("click", ()=>{
+            var m_grid = document.querySelectorAll('.m_input_grid')
+            var hide_divs = document.querySelectorAll('.hide')
+            var all_cells = document.querySelectorAll('.cells')
+
+
+            if(checked_size[0].checked){ 
+                console.log('3x3')
+
+                for (var i = 0; i<all_cells.length; i++){
+                    all_cells[i].value = ''
+                }
+                for (var i = 0; i<hide_divs.length; i++){
+                    hide_divs[i].classList.add("hide_div")
+                }
+                m_grid[0].classList.add("m3")
+                m_grid[0].classList.remove("m4")
+                
+            }
+        })
+
+        checked_size[1].addEventListener("click", ()=>{
+            var m_grid = document.querySelectorAll('.m_input_grid')
+            var hide_divs = document.querySelectorAll('.hide')
+            var all_cells = document.querySelectorAll('.cells')
+
+            if(checked_size[1].checked){
+                console.log('4x4')
+
+                for (var i = 0; i<all_cells.length; i++){
+                    all_cells[i].value = ''
+                }
+                m_grid[0].classList.add("m4")
+                m_grid[0].classList.remove("m3")
+                for (var i = 0; i<hide_divs.length; i++){
+                    hide_divs[i].classList.remove("hide_div")
+                }
+            }
+        })
+
+        </script>
+    {% endblock %}
+
+    
+</body>

@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% set active_page = 'index' %}
+
+<head>
+    {% block head %} 
+    {{ super() }}
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  
+
+    <style>
+        body>h1{
+            margin-left: 0.80rem;
+            margin-top: 0.3rem;
+            padding: 0.25rem;
+            color: red;
+
+        }
+
+        
+
+       #about_svg{
+           width: 100%;
+           height: 100%;
+       }
+
+
+        #about_div{
+           
+           margin-top: 0.5rem;
+       }
+
+       .col-md-6{
+           border: 1px solid green;
+       }
+
+       #title_primary{
+        margin: 1.3rem auto;
+        text-align: center;
+        font-size: 2.3em;
+        font-family: cursive;
+        font-weight: 600;
+        color: rgb(35, 149, 255);
+       }
+
+       .content-text{
+           font-size: 1.3em;
+
+       }
+
+       .content-text2{
+           font-size: 1.3em;
+           margin-top: 0.6rem;
+
+       }
+
+       #contact_btn{
+
+           width: fit-content;
+           height: fit-content;
+           font-size: 1.5em;
+           padding: 0.4rem;
+           display: block;
+           margin: 0.8rem auto;
+           color: white;
+           background-color: crimson;
+           border: 1px solid rgb(219, 84, 111);
+           border-radius: 7px;
+           box-shadow: gray 1px 4px 3px;
+        }
+
+        #contact_btn:hover{
+            background-color: rgb(81, 156, 255);
+            border-color: rgb(69, 134, 255);
+        }
+
+        #contact_link{
+            color: white;
+            padding: 0.4rem;
+            text-decoration: none;
+        }
+
+        #contact_link:hover{
+            background-color: rgb(81, 156, 255);
+            border-color: rgb(69, 134, 255);
+        }
+
+    </style>
+
+    {% endblock %}
+</head>
+
+<body>
+    {% block content %}
+        
+        <div class="container" id = "about_div">
+            <div class="row">
+                <div class="col-lg-6 img_col">
+                    <lottie-player id = "about_svg" src="https://assets8.lottiefiles.com/packages/lf20_M9p23l.json"  background="transparent"  speed="1"  loop  autoplay></lottie-player>
+                </div>
+                <div class="col-lg-6 text_col">
+                    <div id="content">
+                        <h4 id = "title_primary">About</h4>
+                        <p class="content-text">
+                            Welcome to our distinguished website dedicated to the practical application of 
+                            Vedic Maths! We take immense pride in presenting a platform that focuses on 
+                            the efficient solution generation through the utilization 
+                            of Vedic Mathematics techniques. </p>
+                            <p class="content-text"> By embracing Vedic Maths, you will discover the art of mental
+                                calculations, enabling you to swiftly perform mathematical operations 
+                                without relying on calculators or pen and paper. Our platform will guide 
+                                you through the intricacies of rapid multiplication, efficient division, and
+                                 elegant equation solving methods, empowering you to tackle complex mathematical
+                                  challenges with precision and speed.
+                           </p>
+                           
+
+                        
+                    </div>
+                </div>
+            </div>
+
+            <p class="content-text2">
+                Suggestions are always welcome at our platform as we strive to provide the best 
+                possible experience for our users. Whether you have ideas for new features, improvements 
+                to existing ones, or general feedback, we value your input. Your suggestions play a crucial
+                 role in shaping the future of our platform. We encourage you to share your thoughts,
+                 ideas, and recommendations with us, as we believe in continuous improvement.
+            </p>
+
+            <button id="contact_btn"><a id = "contact_link" href="{{url_for('main.contact')}}">Contact Us</a>
+            
+            </button>
+            
+        </div>
+    
+        {% endblock %}
+</body>

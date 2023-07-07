@@ -1,0 +1,572 @@
+{% extends 'base.html' %}
+{% set active_page = 'index' %}
+
+<head>
+    {% block head %}
+    {{ super() }}
+
+    <style>
+        body>h1{
+            
+            margin-top: 0.3rem;
+            color: rgb(30, 128, 255);
+            padding-bottom: 5px;
+            border-bottom: 2px solid rgb(16, 148, 67);
+            width: fit-content;
+            font-style: italic;
+            font-family: cursive;
+            margin: 0.2rem auto;
+            
+        }
+
+        h4{
+            padding: 0.3rem;
+            text-align: left;
+            font-size: 1.2em;
+        }
+
+        .steps_bullet{
+            color: rgb(52, 164, 255);
+            font-weight: 600;
+            font-style: italic;
+            
+        }
+
+        .eq_expression{
+            margin-top: 20px;
+            padding: 0.3rem;
+            font-size: 1.4em;
+            text-align: center;
+        }
+
+    
+
+        .sutra_url{
+            text-decoration: none;
+            color:rgb(243, 65, 154) 
+        }
+
+        .sutra_url:hover{
+            color:rgb(51, 235, 210);
+            text-decoration: underline;
+        }
+
+        .eq_sol_visual{
+            display: block;
+            margin: 0 auto;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        
+    </style>
+
+    {% endblock %}
+
+    </head>
+
+    <body>
+        {% block content %}
+
+        <h1>Solution</h1>
+
+        <div class="eq_expression">Your Entered Equations are: <br>
+
+            $$
+                {{solution["coeff"]["a1"]}} x
+                {% if solution["coeff"]["b1"] < 0 %} {{solution["coeff"]["b1"]}} y
+                {% else %} + {{solution["coeff"]["b1"]}} y {% endif %}
+                = {{solution["coeff"]["c1"]}} \tag{i}   
+            $$
+
+            $$
+                {{solution["coeff"]["a2"]}} x
+                {% if solution["coeff"]["b2"] < 0 %} {{solution["coeff"]["b2"]}} y
+                {% else %} + {{solution["coeff"]["b2"]}} y {% endif %}
+                = {{solution["coeff"]["c2"]}} \tag{ii}   
+            $$
+
+        </div>
+
+
+        <!-- case: no solution -->
+        {% if solution["type"] == "no solution" %}
+            <div class="container">
+              
+              <h4>From the given pair of linear equations we can clearly observe that</h4>  
+
+              
+                $$
+                   \quad \frac{ {{solution["coeff"]["a1"]}} }{ {{solution["coeff"]["a2"]}} } 
+                    = \frac{ {{solution["coeff"]["b1"]}} }{ {{solution["coeff"]["b2"]}} }
+                    \neq \frac{ {{solution["coeff"]["c1"]}} }{ {{solution["coeff"]["c2"]}} }
+                $$
+
+                $$
+                \Rightarrow \frac{   {{solution["a_ratio"][0]}}  }{ {{solution["a_ratio"][1]}} } 
+                  = \frac{ {{solution["b_ratio"][0]}}  }{ {{solution["b_ratio"][1]}} }
+                  \neq \frac{ {{solution["c_ratio"][0]}}  }{ {{solution["c_ratio"][1]}} }
+                $$
+
+                <br>
+                <h4>So, the given pair of linear equations has no solution</h4>
+            </div>
+           
+   
+        <!-- case: infinite solution -->
+        {% elif solution["type"] == "inf solution" %}
+        <div class="container">
+              
+            <h4>From the given pair of linear equations we can clearly observe that</h4>  
+
+            
+              $$
+                 \quad \frac{ {{solution["coeff"]["a1"]}} }{ {{solution["coeff"]["a2"]}} } 
+                  = \frac{ {{solution["coeff"]["b1"]}} }{ {{solution["coeff"]["b2"]}} }
+                  = \frac{ {{solution["coeff"]["c1"]}} }{ {{solution["coeff"]["c2"]}} }
+              $$
+
+              $$
+              \Rightarrow \frac{   {{solution["a_ratio"][0]}}  }{ {{solution["a_ratio"][1]}} } 
+                  = \frac{ {{solution["b_ratio"][0]}}  }{ {{solution["b_ratio"][1]}} }
+                  = \frac{ {{solution["c_ratio"][0]}}  }{ {{solution["c_ratio"][1]}} }
+              $$
+
+              <br>
+              <h4>So, the given pair of linear equations has infinite solutions</h4>
+          </div>
+        
+        <!-- case: Anurupye Sunymanyat -->
+        {% elif solution["type"] == "AnuSu" %}
+          <div class="container">
+            <h4>From the given pair of linear equations we can clearly observe that:</h4>
+
+            <!-- when b1/b2 = c1/c2 then x = 0 -->
+            {% if solution["x"] == 0 %}  
+                $$
+                    \quad \frac{ {{solution["coeff"]["b1"]}} }{ {{solution["coeff"]["b2"]}} }
+                    = \frac{ {{solution["coeff"]["c1"]}} }{ {{solution["coeff"]["c2"]}} }
+                $$
+
+                $$
+                    \Rightarrow \frac{   {{solution["b_ratio"][0]}}  }{ {{solution["b_ratio"][1]}} } 
+                  = \frac{ {{solution["c_ratio"][0]}}  }{ {{solution["c_ratio"][1]}} }
+
+                $$
+
+            <h4>So, we can conclude that x = 0 
+            <a href = "#pastethe link here" class = "sutra_url"> (using Anurupye Sunymanyat) </a> </h4>
+            
+            <h4>Now, put x = 0 in any of the two equation to find the value of y: </h4>
+            $$
+            \text{Let's put x = 0 in eq. (i) }
+            $$
+
+            $$
+            \Rightarrow 0x
+                {% if solution["coeff"]["b1"] < 0 %} {{solution["coeff"]["b1"]}}
+                {% else %} + {{solution["coeff"]["b1"]}} 
+                {% endif %}
+                y = {{solution["coeff"]["c1"]}} 
+            $$
+
+            $$
+            \Rightarrow {% if solution["coeff"]["b1"] < 0 %} {{solution["coeff"]["b1"]}}
+            {% else %} + {{solution["coeff"]["b1"]}} 
+            {% endif %}
+            y = {{solution["coeff"]["c1"]}} 
+            $$
+
+            $$
+            \Rightarrow  y = \frac{ {{solution["coeff"]["c1"]}} } { {{solution["coeff"]["b1"]}} }
+            $$
+
+            $$
+            \Rightarrow  y = 
+                        {% if solution["y_c"] == 1 %} {{solution["y"][0]}}
+                        {% else %} \frac{ {{solution["y"][0]}} }{ {{solution["y"][1]}} }
+                        {% endif %}
+            $$
+
+           <h4>So, the solution for the given pair of linear equations is: </h4>
+
+                $$
+                x = 0, \qquad
+                y = 
+                        {% if solution["y_c"] == 1 %} {{solution["y"][0]}}
+                        {% else %} \frac{ {{solution["y"][0]}} }{ {{solution["y"][1]}} }
+                        {% endif %}
+                $$
+
+            <!-- when a1/a2 = c1/c2 then y = 0 -->
+            {% else %}
+
+                $$
+                    \quad \frac{ {{solution["coeff"]["a1"]}} }{ {{solution["coeff"]["a2"]}} }
+                    = \frac{ {{solution["coeff"]["c1"]}} }{ {{solution["coeff"]["c2"]}} }
+                $$
+
+                $$
+                    \Rightarrow \frac{   {{solution["a_ratio"][0]}}  }{ {{solution["a_ratio"][1]}} } 
+                  = \frac{ {{solution["c_ratio"][0]}}  }{ {{solution["c_ratio"][1]}} }
+
+                $$
+
+                <h4>So, we can conclude that y = 0 
+                <a href = "#pastethe link here" class = "sutra_url"> (using Anurupye Sunymanyat) </a> </h4>
+            
+                <h4>Now, put y = 0 in any of the two equation to find the value of x: </h4>
+                $$
+                \text{Let's put y = 0 in eq. (i) }
+                $$
+
+                $$
+                    \Rightarrow {{solution["coeff"]["a1"]}} x + 0y = {{solution["coeff"]["c1"]}}
+                $$
+
+                    $$
+                        \Rightarrow {{solution["coeff"]["a1"]}} x = {{solution["coeff"]["c1"]}} 
+                    $$
+
+                    $$
+                    \Rightarrow  x = \frac{ {{solution["coeff"]["c1"]}} } { {{solution["coeff"]["a1"]}} }
+                    $$
+
+                    $$
+                    \Rightarrow  x = 
+                                {% if solution["x_c"] == 1 %} {{solution["x"][0]}}
+                                {% else %} \frac{ {{solution["x"][0]}} }{ {{solution["x"][1]}} }
+                                {% endif %}
+                    $$
+
+                <h4>So, the solution for the given pair of linear equations is: </h4>
+
+                $$
+                x = {% if solution["x_c"] == 1 %} {{solution["x"][0]}}
+                    {% else %} \frac{ {{solution["x"][0]}} }{ {{solution["x"][1]}} }
+                    {% endif %} 
+                \qquad y = 0
+                $$
+
+
+            {% endif %}
+
+        </div>
+        
+        <!-- case: Anurupye Sunymanyat -->
+
+        {% elif solution["type"] == "SanVya" %}
+        <div class="container">
+            <h4>If we observe the given pair of linear equations the coefficient of x in the first equation is equal to the coefficient of y in the second equation and vice versa.</h4>
+            <br>
+            <h4>It can be solved easily by the addition and subtraction of the two equations 
+                <a href = "#link here" class = "sutra_url">(Sankalana Vyavakalanam)</a></h4>
+
+            <h4><span class = "steps_bullet">Step: 1 - </span>Adding equation (i) and (ii): </h4>
+
+            $$
+                {{solution["coeff"]["a1"]}} x
+                {% if solution["coeff"]["b1"] < 0 %} {{solution["coeff"]["b1"]}} y
+                {% else %} + {{solution["coeff"]["b1"]}} y {% endif %}
+                = {{solution["coeff"]["c1"]}} \tag{i}   
+            $$
+
+            $$  \underline{
+                {{solution["coeff"]["a2"]}} x
+                {% if solution["coeff"]["b2"] < 0 %} {{solution["coeff"]["b2"]}} y
+                {% else %} + {{solution["coeff"]["b2"]}} y {% endif %}
+                = {{solution["coeff"]["c2"]}}
+                }
+                 \tag{ii}   
+            $$
+
+            $$
+                {{solution["eq_4"]["a41"]}} x
+                {% if solution["eq_4"]["a42"] < 0 %} {{solution["eq_4"]["a42"]}} y
+                {% else %} + {{solution["eq_4"]["a42"]}} y {% endif %}
+                = {{solution["eq_4"]["c4"]}} 
+            $$
+
+            $$
+             \Rightarrow   x + y = \frac{ {{solution["eq_4"]["c4"]}} } { {{solution["eq_4"]["a41"]}} }
+            $$
+            
+            
+
+            $$
+            \Rightarrow   x + y = {% if solution["c6_c"] == 1 %}  {{solution["c6"][0]}}
+                                  {% else %} \frac{ {{solution["c6"][0]}} }{ {{solution["c6"][1]}} }
+                                  {% endif %} \tag{iii}
+            $$
+
+            {% if solution["coeff"]["a1"] >=  solution["coeff"]["a2"] %}
+            <h4><span class = "steps_bullet">Step: 2 - </span>Subtracting equation (ii) from (i) </h4>
+            
+            $$
+                {{solution["coeff"]["a1"]}} x
+                {% if solution["coeff"]["b1"] < 0 %} {{solution["coeff"]["b1"]}} y
+                {% else %} + {{solution["coeff"]["b1"]}} y {% endif %}
+                = {{solution["coeff"]["c1"]}} \tag{i}   
+            $$
+
+            $$  \underline{
+                {{solution["coeff"]["a2"]}} x
+                {% if solution["coeff"]["b2"] < 0 %} {{solution["coeff"]["b2"]}} y
+                {% else %} + {{solution["coeff"]["b2"]}} y {% endif %}
+                = {{solution["coeff"]["c2"]}} 
+                }
+                \tag{ii}   
+            $$
+
+
+
+            {% else %}
+            <h4><span class = "steps_bullet">Step: 2 - </span>Subtracting equation (i) from (ii) </h4>
+            
+            $$  
+                {{solution["coeff"]["a2"]}} x
+                {% if solution["coeff"]["b2"] < 0 %} {{solution["coeff"]["b2"]}} y
+                {% else %} + {{solution["coeff"]["b2"]}} y {% endif %}
+                = {{solution["coeff"]["c2"]}} 
+                
+                \tag{ii}   
+            $$
+
+            $$ \underline{
+                {{solution["coeff"]["a1"]}} x
+                {% if solution["coeff"]["b1"] < 0 %} {{solution["coeff"]["b1"]}} y
+                {% else %} + {{solution["coeff"]["b1"]}} y {% endif %}
+                = {{solution["coeff"]["c1"]}} 
+                }
+                \tag{i}   
+            $$
+
+            
+            {% endif %}
+
+            $$
+                {{solution["eq_5"]["a51"]}} x
+                {% if solution["eq_5"]["a52"] < 0 %} {{solution["eq_5"]["a52"]}} y
+                {% else %} + {{solution["eq_5"]["a52"]}} y {% endif %}
+                = {{solution["eq_5"]["c5"]}} 
+                 
+            $$
+
+            $$
+             \Rightarrow   x - y = \frac{ {{solution["eq_5"]["c5"]}} } { {{solution["eq_5"]["a51"]}} } 
+            $$
+
+            
+
+            $$
+            \Rightarrow   x - y = {% if solution["c7_c"] == 1 %}  {{solution["c7"][0]}}
+                                  {% else %} \frac{ {{solution["c7"][0]}} }{ {{solution["c7"][1]}} }
+                                  {% endif %} \tag{iv}
+            $$
+
+            <h4><span class = "steps_bullet">Step: 3 - </span>Now, on adding eq. (iii) and (iv)  we get: </h4>
+
+            $$
+                2x = {% if solution["x_deno"] == 1 %} {{solution["x_num"]}}
+                     {% else %} \frac{ {{solution["x_num"]}} } { {{solution["x_deno"]}} }
+                     {% endif %}
+            $$
+
+            $$
+                x = {% if solution["x_deno"] == 1 %} {{solution["x_num"]}}
+                    {% else %} \frac{ {{solution["x_num"]}} } { {{2 * solution["x_deno"]}} }
+                    {% endif %}
+            $$
+
+            
+            
+            $$ \Rightarrow
+            x = {% if solution["x_c"] == 1 %} {{solution["x"][0]}}
+            {% else %} \frac{ {{solution["x"][0]}} } { {{solution["x"][1]}} }
+            {% endif %}
+            $$
+
+            <h4><span class = "steps_bullet">Step: 4 - </span>On subtracting eq. (iv) from (iii), we get: </h4>
+            $$
+            2y = {% if solution["y_deno"] == 1 %} {{solution["y_num"]}}
+                 {% else %} \frac{ {{solution["y_num"]}} } { {{solution["y_deno"]}} }
+                 {% endif %}
+            $$
+
+            $$
+                y = {% if solution["y_deno"] == 1 %} {{solution["y_num"]}}
+                    {% else %} \frac{ {{solution["y_num"]}} } { {{2 * solution["y_deno"]}} }
+                    {% endif %}
+            $$
+
+            
+            
+            $$ \Rightarrow
+            y = {% if solution["y_c"] == 1 %} {{solution["y"][0]}}
+            {% else %} \frac{ {{solution["y"][0]}} } { {{solution["y"][1]}} }
+            {% endif %}
+            $$
+
+            <h4>So, the solution for the given pair of linear equations is: </h4>
+
+                $$
+                x = {% if solution["x_c"] == 1 %} {{solution["x"][0]}}
+                {% else %} \frac{ {{solution["x"][0]}} } { {{solution["x"][1]}} }
+                {% endif %}
+
+
+                \qquad
+                y = {% if solution["y_c"] == 1 %} {{solution["y"][0]}}
+                {% else %} \frac{ {{solution["y"][0]}} } { {{solution["y"][1]}} }
+                {% endif %}
+                $$
+                
+        </div>
+
+        {% elif solution["type"] == "normal" %}
+
+        <div class="container">
+            
+            <h4><span class = "steps_bullet">Step: 1 - </span>Compare with the following equation and find 
+                a<sub>1</sub>, b<sub>1</sub>, c<sub>1</sub>, a<sub>2</sub>, b<sub>2</sub>, and c<sub>2</sub>: </h4>
+
+            $$
+                a_1 x + b_1 y = c_1
+            $$
+
+            $$
+                a_2 x + b_2 y = c_2 
+            $$
+            
+            <br>
+            
+            $$  a_1 = {{solution["coeff"]["a1"]}} \qquad a_2 = {{solution["coeff"]["a2"]}} $$ 
+            $$  b_1 = {{solution["coeff"]["b1"]}} \qquad b_2 = {{solution["coeff"]["b2"]}} $$ 
+            $$  c_1 = {{solution["coeff"]["c1"]}} \qquad c_2 = {{solution["coeff"]["c2"]}} $$ 
+            
+
+            <h4><span class = "steps_bullet">Step: 2 - </span>The Numerator of x can be calculated as: </h4>
+            <img src="../static/eq_sol_x_num.svg" alt="Numerator_of_x_visual" class="img-fluid eq_sol_visual">
+            
+            $$
+            \text{Numerator of x } = b_1 c_2 - b_2 c_1
+            $$
+
+            $$
+            \Rightarrow  ( {{solution["coeff"]["b1"]}} ) ( {{solution["coeff"]["c2"]}} ) - ( {{solution["coeff"]["b2"]}} )( {{solution["coeff"]["c1"]}} )
+            $$
+
+            $$
+            \Rightarrow  {{ solution["coeff"]["b1"] *  solution["coeff"]["c2"] }} - 
+            {% if (solution["coeff"]["b2"] *  solution["coeff"]["c1"]) < 0 %} ( {{ solution["coeff"]["b2"] *  solution["coeff"]["c1"] }} )
+            {% else %} {{ solution["coeff"]["b2"] *  solution["coeff"]["c1"] }}
+            {% endif %}
+            $$
+            
+            $$
+            \Rightarrow {{solution["x_num"]}}
+            $$
+            <h4><span class = "steps_bullet">Step: 3 - </span>The Numerator of y can be calculated as: </h4>
+            <img src="../static/eq_sol_y_num.svg" alt="Numerator_of_y_visual" class="img-fluid eq_sol_visual">
+            
+            $$
+            \text{Numerator of y } = c_1 a_2 - c_2 a_1
+            $$
+
+            $$
+            \Rightarrow  ( {{solution["coeff"]["c1"]}} ) ( {{solution["coeff"]["a2"]}} ) - ( {{solution["coeff"]["c2"]}} )( {{solution["coeff"]["a1"]}} )
+            $$
+
+            $$
+            \Rightarrow  {{ solution["coeff"]["c1"] *  solution["coeff"]["a2"] }} - 
+            {% if (solution["coeff"]["c2"] *  solution["coeff"]["a1"]) < 0 %} ( {{ solution["coeff"]["c2"] *  solution["coeff"]["a1"] }} )
+            {% else %} {{ solution["coeff"]["c2"] *  solution["coeff"]["a1"] }}
+            {% endif %}
+            $$
+            
+            $$
+            \Rightarrow {{solution["y_num"]}}
+            $$
+
+            <br>
+
+            <h4><span class="steps_bullet">Step: 4 - </span>The denominator part for both x and y can be calculated as: </h4>
+              
+            <img src="../static/eq_sol_deno.svg" alt="Denominator_visual" class="img-fluid eq_sol_visual">
+
+            $$
+                \text{Denominator} = - (a_1 b_2 - a_2 b_1)
+            $$
+
+           
+            $$
+            \Rightarrow  -[( {{solution["coeff"]["a1"]}} ) ( {{solution["coeff"]["b2"]}} ) - ( {{solution["coeff"]["a2"]}} )( {{solution["coeff"]["b1"]}} )]
+    
+            $$
+
+            $$
+            \Rightarrow  -[{{ solution["coeff"]["a1"] *  solution["coeff"]["b2"] }} - 
+            {% if (solution["coeff"]["a2"] *  solution["coeff"]["b1"]) < 0 %} ( {{ solution["coeff"]["a2"] *  solution["coeff"]["b1"] }} )
+            {% else %} {{ solution["coeff"]["a2"] *  solution["coeff"]["b1"] }}
+            {% endif %}]
+            $$
+            
+            $$
+            \Rightarrow {{solution["x_y_deno"]}}
+            $$
+
+            <h4><span class = "steps_bullet">Step: 5 - </span>Now that we have numerator and denominator part of x and y, value of x and y can be calculated as:  </h4>
+
+            $$
+            x = \frac{ {{solution["x_num"]}} } { {{solution["x_y_deno"]}} }
+            $$
+
+            $$ \Rightarrow
+                x = {% if solution["x_c"] ==1 %} {{ solution["x"][0] }}
+                    {% else %} \frac{ {{solution["x"][0]}} }{ {{solution["x"][1]}} }
+                    {% endif %}
+            $$
+            
+            $$
+            y = \frac{ {{solution["y_num"]}} } { {{solution["x_y_deno"]}} }
+            $$
+
+            $$ \Rightarrow
+                y = {% if solution["y_c"] == 1 %} {{ solution["y"][0] }}
+                    {% else %} \frac{ {{solution["y"][0]}} }{ {{solution["y"][1]}} }
+                    {% endif %}
+            $$
+
+        
+        </div>
+
+        
+        
+        
+        {% elif solution["type"] == "homogenous" %}
+
+        <div class="container">
+            <h4>The given system is homogenous</h4><br>
+            <h4>The trivial solution is : </h4>
+            $$
+                x = 0, \qquad y = 0
+            $$
+        </div>
+
+        {% else %}
+        <div class="container">
+            <h4>We are Sorry to inform you !</h4>
+            <h4>It's solution couldn't be generated</h4>
+        </div>
+
+        {% endif %}
+
+    
+
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml-full.min.js" integrity="sha512-PbLRl9V4qEM7j3xggKupLNdcodHT0w+x77S/JoTWxrhPEVZ0NkTPp90bzUeTyFXsBzsaApVOZdCHIzL6o51KiA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        {% endblock %}
+
+
+    </body>

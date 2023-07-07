@@ -1,0 +1,522 @@
+{% extends 'base.html' %}
+<head>
+    {% block head %} 
+    {{ super() }}
+    <style>
+        
+        body>h1{
+            margin-left: 0.80rem;
+            margin-top: 0.3rem;
+            padding: 0.25rem;
+            color: red;
+        }
+
+        .menu_eq_type{
+            display: block;
+            margin: 0 auto;
+            width: 60vw;
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 30px;
+            
+        }
+
+        #top_label{
+            display: block;
+            text-align: center;
+            font-size: 1.7em;
+            margin: 0.43rem
+        }
+
+        #show_inp{
+            display: block;
+            width: fit-content;
+            height: 50px;
+            text-align: center;
+            padding: 0.43rem;
+            margin: 30px auto;
+            background: mediumseagreen;
+            color: white;
+            font-size: 1.2em;
+            border: 1px solid greenyellow;
+            border-radius: 5px;
+            box-shadow: grey 4px 5px 8px;
+        }
+
+        #show_inp:hover{
+            background: hotpink;
+            box-shadow: grey 3px 6px 2px;
+        }
+
+        #eq_type_display{
+            display: block;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .eq_type_expression{
+            font-size: 0.8em;
+        }
+
+        @media only screen and (min-width: 630px) {
+            .eq_type_expression{
+                font-size: 1.5em;
+              
+            }
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        
+        input[type=number] {
+        -moz-appearance: textfield;
+        }
+
+        .sol_btn{
+            
+            display: block;
+            margin: 0 auto;
+            width: 100px;
+            height: 50px;
+            font-size: 1.3rem;
+            margin-top: 20px;
+            background-color: crimson;
+            color: white;
+            border: 1px solid rgb(175, 60, 83);
+            border-radius: 12px;
+        
+        }
+
+        .sol_btn:hover{
+            color: black;
+            background-color: lightgreen;
+            box-shadow: rgb(81, 107, 81) 5px 6px 7px;
+        }
+
+        .eq_val_inp{
+            box-sizing: border-box;
+            text-align: center;
+            margin-top: 20px;
+            padding: 0.4rem;
+           
+        }
+
+        #inp_label_top{
+            text-align: center;
+            font-size: 1.7em;
+        }
+
+        label,input{
+            font-size: 1.5em;
+            margin-top: 0.5rem;
+        }
+
+        input{
+            box-sizing: border-box;
+            border: 1px solid gray;
+            background-color: rgb(235, 255, 255);
+            padding: 0.3rem;
+        }
+       
+       .show{
+           width: fit-content;
+           padding: 0.3rem;
+           margin: 0 auto;
+           text-align: center;
+           margin-top: 9px;
+           animation:  animate 4s forwards;
+       }
+
+       @keyframes animate {
+            0%   {opacity: 1;}
+            90%  {opacity: 1;}
+            100% {opacity: 0;}
+        }
+        
+        @-webkit-keyframes animate {
+            0%   {opacity: 1;}
+            90%  {opacity: 1;}
+            100% {opacity: 0;}  
+        }
+
+        .hide{
+            display: none;
+        }
+
+       
+        
+    </style>
+
+    {% endblock %}
+</head>
+
+<body>
+    {% block content %}
+    <h1>Equations solution: </h1>
+
+    <label id = "top_label" for="eq-type">Select Equation type: </label>
+    <select class="form-select menu_eq_type" name = "eq-type">
+        <option value="type-1">Equation type-1</option>
+        <option value="type-2">Equation type-2</option>
+        <option value="type-3">Equation type-3</option>
+        <option value="type-4">Equation type-4</option>
+        <option value="type-5">Equation type-5</option>
+      </select>
+
+      <div id = "eq_type_display">
+            <div id = "type-1">
+                $$
+                \large{
+                \text{ \color {Blue} Equation Type - 1} \enspace 
+                }
+                $$
+                
+                $$
+                
+                \class{eq_type_expression}{
+                ({\color{DarkViolet} a} x + {\color{Red} b}) 
+              = ({\color{DodgerBlue} c} x +  {\color{LimeGreen} d})
+                }
+                $$
+            </div>
+
+            <div id = "type-2">
+                $$
+                \large{
+                \text
+                { \color {Blue} Equation Type - 2}
+                }
+                $$
+                
+                $$
+                \class{eq_type_expression}{
+                ({\color{MediumBlue}x }
+                + 
+                {\color{Red} m}) 
+                
+                ({\color{MediumBlue} x }
+                + 
+                {\color{DodgerBlue} n}) 
+                = 
+                ({\color{MediumBlue} x }
+                + 
+                 {\color{LightSeaGreen} p})
+                
+                ({\color{MediumBlue} x }
+                + 
+                 {\color{Purple} q})
+                }
+                $$
+            </div>
+
+            <div id = "type-3">
+            
+                $$
+                \large{
+                \text
+                { \color {Blue} Equation Type - 3}
+                }
+                $$
+
+                $$
+                \class{eq_type_expression}{
+                \dfrac{ ({\color{DarkGreen} a} x + {\color{Red} b}) }
+                { ({\color{DarkViolet} c} x + {\color{Magenta} d}) }
+                = 
+                \dfrac{ {\color{Purple} p} }
+                { {\color{DodgerBlue} q} }
+                }
+                $$
+            
+            </div>
+
+            <div id = "type-4">
+                
+                $$
+                
+                \large{
+                \text
+                { \color {Blue} Equation Type - 4}
+                }
+                $$
+
+                $$
+                \class{eq_type_expression}{
+                \frac{ {\color{DarkGreen} m} }
+
+
+                { ({\color{Blue} x}
+                + 
+                {\color{Magenta} a}) }
+                
+                + 
+                
+                \frac{ {\color{Orange} n} }
+                
+                
+                { ({\color{Blue} x}
+                + 
+                {\color{Cyan} b}) }
+                = 
+                0
+                }
+                $$
+
+                
+            </div>
+
+            <div id = "type-5">
+                $$
+                \large{
+                \text
+                { \color {Blue} Equation Type - 5}
+                }
+                $$
+
+
+                $$
+                \class{eq_type_expression}{
+                \frac{p}
+                {
+                ({\color{DarkGreen} x }
+                + 
+                {\color{Red} a})
+                ({\color{DarkGreen}x }
+                + 
+                {\color{Cyan} b})
+                }
+
+                +
+
+                \frac{q}
+                {
+                ({\color{DarkGreen} x }
+                + 
+                {\color{Cyan} b})
+                ({\color{DarkGreen}x }
+                + 
+                {\color{Green} c})
+                }
+
+                +
+
+                \frac{r}
+                {
+                ({\color{DarkGreen} x }
+                + 
+                {\color{Green} c})
+                ({\color{DarkGreen}x }
+                + 
+                {\color{Red} a})
+                }
+
+                = 0
+                }
+
+                $$
+            </div>
+      </div>
+      <hr>
+    <div id = "inp_label_top">Enter values of: </div>
+
+    
+        <div id = "error_message" class = "alert alert-info hide">
+        <i class="fa-solid fa-circle-info fa-bounce"></i>&nbsp;&nbsp;
+        All fiels are required ! <br>
+        &nbsp;&nbsp; You may have missed some values&nbsp;&nbsp;&nbsp; 
+        </div>
+            
+      
+    <div id = "inp_type-1" class = "eq_val_inp">
+        <form action="/calc?p=s-4-que&t=type-1", method="POST" onsubmit="return validate()">
+        
+        <label for="a">a &nbsp;</label>
+        <input type="number" name= "a"><br>
+        <label for="b">b &nbsp;</label>
+        <input type="number" name= "b"><br>
+        <label for="c">c &nbsp;</label>
+        <input type="number" name= "c"><br>
+        <label for="d">d &nbsp;</label>
+        <input type="number" name= "d">
+        
+
+        <button class = "sol_btn">Solve</button>
+
+        </form>
+    </div>
+
+    <div id = "inp_type-2" class = "eq_val_inp">
+        <form action="/calc?p=s-4-que&t=type-2", method="POST" onsubmit="return validate()">
+            
+            <label for="m">m &nbsp;</label>
+            <input type="number" name= "m"><br>
+            <label for="n">n &nbsp;</label>
+            <input type="number" name= "n"><br>
+            <label for="p">p &nbsp;</label>
+            <input type="number" name= "p"><br>
+            <label for="q">q &nbsp;</label>
+            <input type="number" name= "q">
+        
+        
+    
+        <button class = "sol_btn">Solve</button>
+    
+        </form>
+    </div>
+
+      <div id = "inp_type-3" class = "eq_val_inp">
+        <form action="/calc?p=s-4-que&t=type-3", method="POST" onsubmit="return validate()">
+        
+        <label for="a">a &nbsp;</label>
+        <input type="number" name= "a"><br>
+        <label for="b">b &nbsp;</label>
+        <input type="number" name= "b"><br>
+        <label for="c">c &nbsp;</label>
+        <input type="number" name= "c"><br>
+        <label for="d">d &nbsp;</label>
+        <input type="number" name= "d"><br>
+        <label for="p">p &nbsp;</label>
+        <input type="number" name= "p"><br>
+        <label for="q">q &nbsp;</label>
+        <input type="number" name= "q">
+        
+    
+        <button class = "sol_btn">Solve</button>
+    
+        </form>
+    </div>
+
+    <div id = "inp_type-4" class = "eq_val_inp">
+        <form action="/calc?p=s-4-que&t=type-4", method="POST" onsubmit="return validate()">
+        
+        <label for="m">m &nbsp;</label>
+        <input type="number" name= "m"><br>
+        <label for="n">n &nbsp;</label>
+        <input type="number" name= "n"><br>
+        <label for="a">a &nbsp;</label>
+        <input type="number" name= "a"><br>
+        <label for="b">b &nbsp;</label>
+        <input type="number" name= "b">
+        
+    
+        <button class = "sol_btn">Solve</button>
+        </form>
+    </div>
+
+    <div id = "inp_type-5" class = "eq_val_inp">
+        <form action="/calc?p=s-4-que&t=type-5", method="POST" onsubmit="return validate()">
+        
+            <label for="p">p &nbsp;</label>
+            <input type="number" name= "p"><br>
+            <label for="q">q &nbsp;</label>
+            <input type="number" name= "q"><br>
+            <label for="r">r &nbsp;</label>
+            <input type="number" name= "r"><br>
+            <label for="a">a &nbsp;</label>
+            <input type="number" name= "a"><br>
+            <label for="b">b &nbsp;</label>
+            <input type="number" name= "b"><br>
+            <label for="c">c &nbsp;</label>
+            <input type="number" name= "c">
+        
+
+        <button class = "sol_btn">Solve</button>
+
+        </form>
+    </div>
+
+    <script>
+
+
+        var select_op = document.querySelector(".menu_eq_type");
+        var eq_types = document.querySelector("#eq_type_display").children;
+        var eq_val_inp = document.querySelectorAll(".eq_val_inp");
+        var submit_buttons = document.querySelectorAll(".sol_btn")
+
+        var currently_selected = select_op.options[select_op.selectedIndex].value;
+       
+        for(let i = 0; i<eq_types.length; i++){
+            if(eq_types[i].id == currently_selected){
+                eq_types[i].style.display = 'block';
+                eq_val_inp[i].style.display = "block"
+                submit_buttons[i].classList.add('visible')
+            }else{
+                 eq_types[i].style.display = 'none';
+                 eq_val_inp[i].style.display = "none"
+                 submit_buttons[i].classList.remove('visible')
+            }
+        }        
+        
+        // console.log(currently_selected)
+        // console.log(eq_types)
+        select_op.onchange = (event) => {
+            var choosen_value = event.target.value;
+            //console.log(choosen_value);
+
+            for(let i = 0; i<eq_types.length; i++){
+                if(eq_types[i].id == choosen_value){
+                    eq_types[i].style.display = 'block';
+                    eq_val_inp[i].style.display = "block"
+                }else{
+                    eq_types[i].style.display = 'none';
+                    eq_val_inp[i].style.display = "none"
+                }
+            }
+        }
+
+
+            
+
+            function validate(){
+
+                var submit_btn_visible = document.querySelector(".visible")
+                var alert_box = document.querySelector("#error_message");
+
+                var inputs_divs = document.querySelectorAll('.eq_val_inp')
+
+
+                let current_div = '' ;
+
+                for(let i = 0; i<inputs_divs.length; i++){
+                    if(inputs_divs[i].style.display == 'block'){
+                        current_div = inputs_divs[i];
+                        break;
+                    }
+                }
+
+                console.log(current_div)
+
+                var inputs = current_div.querySelectorAll('input')
+
+                for(let i=0; i<inputs.length; i++){
+                    if(inputs[i].value == ''){
+                        console.log("don't submit")
+                        alert_box.classList.remove('hide')
+                        alert_box.classList.add('show')
+                        setTimeout(() => {
+                            alert_box.classList.add('hide')
+                            alert_box.classList.remove('show')
+                        }, 4000);
+                    
+                        return false;
+                    }
+
+                }
+
+                console.log("all ok")
+                return true;
+
+            }
+            
+            
+
+            
+        
+    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml-full.min.js" integrity="sha512-PbLRl9V4qEM7j3xggKupLNdcodHT0w+x77S/JoTWxrhPEVZ0NkTPp90bzUeTyFXsBzsaApVOZdCHIzL6o51KiA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {% endblock %}
+</body>

@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+<head>
+    {% block head %} 
+    {{ super() }}
+    
+    <style>
+        body>h1{
+            margin-left: 0.80rem;
+            margin-top: 0.3rem;
+            padding: 0.25rem;
+            color: red;
+
+        }
+
+        body p{
+            margin-left: 1rem;
+            margin-right: 1rem;
+            padding: 0.25rem;
+        }
+
+        #p_label{
+            font-size: 1.3rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .m3{
+            width: fit-content;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.1rem 0.1rem;
+            border: 1px solid green;
+            margin: 0 auto;
+        }
+
+        .rows{
+            border: 1px solid black;
+            width: fit-content;
+        }
+
+        input[type = "number"]{
+            font-size: 1.4em;
+            width: 75px;
+            height: 40px;
+            border: none;
+            text-align: center;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+        -moz-appearance: textfield;
+        }
+
+        #get_sol_btn{
+            display: block;
+            margin: 0 auto;
+            width: fit-content;
+            height: 50px;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            background-color: crimson;
+            color: white;
+            border: 1px solid rgb(175, 60, 83);
+            border-radius: 12px;
+        }
+
+        #get_sol_btn:hover{
+            color: black;
+            background-color: lightgreen;
+            box-shadow: rgb(81, 107, 81) 5px 6px 7px;
+        }
+
+        .show{
+            width: fit-content;
+            margin: 0 auto;
+            margin-top: 20px;
+            padding: 0.3rem;
+            border: 1px solid green;
+            text-align: center;
+            -webkit-animation: cssAnimation 4s forwards; 
+            animation: cssAnimation 4s forwards;
+        }
+
+        @keyframes cssAnimation {
+            0%   {opacity: 1;}
+            90%  {opacity: 1;}
+            100% {opacity: 0;}
+        }
+        
+        @-webkit-keyframes cssAnimation {
+            0%   {opacity: 1;}
+            90%  {opacity: 1;}
+            100% {opacity: 0;}
+        }
+
+        .hide{
+            display: none;
+        }
+    
+    </style>
+
+{% endblock %}
+</head>
+
+<body>
+    {% block content %}
+    <h1>Inverse of Matrix: </h1>
+    <p id="p_label">Enter Matrix Elements: </p>
+    <form action="/calc?p=s-3-que", method="POST" onsubmit="return validate()">
+        <div class="m_input_grid m3">
+             <div class="rows"><input type="number" class = "cells" name = "a1"></div>
+             <div class="rows"><input type="number" class = "cells" name = "a2"></div>
+             <div class="rows"><input type="number" class = "cells" name = "a3"></div>
+             <div class="rows"><input type="number" class = "cells" name = "a4"></div>
+             <div class="rows"><input type="number" class = "cells" name = "a5"></div>
+             <div class="rows"><input type="number" class = "cells" name = "a6"></div>
+             <div class="rows"><input type="number" class = "cells" name = "a7"></div>
+             <div class="rows"><input type="number" class = "cells" name = "a8"></div>
+             <div class="rows"><input type="number" class = "cells" name = "a9"></div>
+             
+        </div>
+            <input id = "get_sol_btn" type="submit" value = "Find Solution">
+        </form>
+
+        
+
+        <div id = "error_message" class = "alert alert-info hide">
+           
+            &nbsp;&nbsp;<i class="fa-solid fa-circle-info fa-bounce"></i>
+                &nbsp;&nbsp;You might have missed some values ! &nbsp;&nbsp;<br>
+                &nbsp;&nbsp;Please enter all values&nbsp;&nbsp;
+            
+        </div>
+
+
+    <script>
+        function validate(){
+            alert_box = document.querySelector("#error_message");
+
+            var inputs = document.querySelectorAll(".cells");
+
+
+            for(let i=0; i<inputs.length; i++){
+                if(inputs[i].value == ''){
+                   // console.log("don't submit")
+                    alert_box.classList.remove("hide")
+                    alert_box.classList.add("show")
+
+                    setTimeout(() => {
+                        alert_box.classList.remove("show")
+                        alert_box.classList.add("hide")
+                    }, 4000);
+
+                    return false;
+                }
+            }
+
+            //console.log("Ready to submit!")
+            return true;
+        }
+    </script>
+    {% endblock %}
+
+</body>
