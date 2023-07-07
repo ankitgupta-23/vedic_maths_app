@@ -17,13 +17,13 @@
 
 .nav-link{
     color: rgb(0,0,0) !important;
-    font-family: cursive;
-    font-weight: 500 !important;
-    font-size: 1.1em;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 600 !important;
+    font-size: 1.2em;
 }
 
 .active{
-    color: crimson !important;
+    color: rgb(220, 255, 232) !important;
 }
 
 

@@ -34,7 +34,7 @@
 
     
 
-                    <form action="/contact" method="POST" onsubmit="return validate()">
+                    <form action="/contact" id = "contactForm" method="POST" onsubmit="return validate()">
                             <input class="ip_f" type="text" name="name" id="name" placeholder = "Name">
                             <input  class="ip_f" type="text" name="email" id="email" placeholder = "Email">
                             <textarea  class="ip_f" name="message" id="message" cols="30" rows="4" placeholder="Your message...."></textarea>
@@ -128,9 +128,33 @@ function validate(){
             return false;
             }
 
-                
+
+
         return true;
     }
+
+    // form data submission to server after validation
+    $(document).ready(()=>{
+        $("#contactForm").on("submit", (e)=>{
+            e.preventDefault()
+
+            var formdata = new FormData(document.querySelector("#contactForm"));
+
+            $.ajax({
+                url: "{{url_for('main.contact')}}",
+                type: "POST",
+                data: formdata,
+                processData: false,
+                contentType: false
+
+            }).done((response)=>{
+                console.log("response!")
+            });
+
+
+        });
+    });
+
 
     </script>
 

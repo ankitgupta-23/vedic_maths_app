@@ -54,11 +54,11 @@ form{
 #title_primary{
     font-size: 1.7em;
     font-weight: 600;
-    font-family: cursive;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 #title_secondary{
-    font-family: cursive;
+    font-family: 'Times New Roman', Times, serif;
     font-weight: 500;
     font-size: 1.2em;
 }
