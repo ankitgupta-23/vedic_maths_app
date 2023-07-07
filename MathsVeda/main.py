@@ -1,6 +1,6 @@
 
 import re
-from flask import Blueprint, render_template, url_for, request, redirect, abort, jsonify,
+from flask import Blueprint, render_template, url_for, request, redirect, abort, jsonify
 from werkzeug.exceptions import HTTPException
 
 from . import solver
