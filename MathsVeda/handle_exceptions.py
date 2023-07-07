@@ -11,6 +11,7 @@ def handle_404(err):
         return "500 error - we will use a custom template", 500
 
 
-# @handle_exceptions.app_errorhandler(Exception)
-# def handle_any_uncertainity(err):
-#     return {"err": err}
+@handle_exceptions.app_errorhandler(Exception)
+def handle_any_uncertainity(err):
+    print(err)
+    return "some python error!"
