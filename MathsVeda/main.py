@@ -4,6 +4,7 @@ from flask import Blueprint, render_template, url_for, request, redirect, abort,
 from werkzeug.exceptions import HTTPException
 
 from . import solver
+from .send_contact_data import send_message
 
 
 main = Blueprint('main', __name__)
@@ -44,6 +45,7 @@ def contact_mail():
     email = request.form.get('email')
     message = request.form.get('message')
 
+    send_message({"name":name, "email": email, "message": message})
 
     return jsonify({"status": "success"})
 
