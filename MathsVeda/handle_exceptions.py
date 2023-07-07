@@ -13,4 +13,4 @@ def handle_404(err):
 
 @handle_exceptions.app_errorhandler(Exception)
 def handle_any_uncertainity(err):
-    return "some python error"
+    return ["some python error", err]
