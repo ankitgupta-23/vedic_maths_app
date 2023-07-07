@@ -1,0 +1,138 @@
+.contact_us{
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+@media only screen and (min-width: 992px){
+    .contact_us{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    #error_message{
+        margin-top: 0;
+        
+    }
+}
+
+
+#contact_anime{
+    width: 80%;
+    height: 80%;
+    display: block;
+    margin: 0 auto;   
+}
+
+#col1{
+    text-align: center;
+}
+
+#col2{
+    /* padding-top: 0.6rem; */
+    box-sizing: border-box;
+}
+
+form{
+    padding: 10px;
+}
+
+.ip_f{
+    display: block;
+    margin: 0 auto;
+    width: 70%;
+    font-size: 1.2em;
+    padding: 0.4rem;
+    margin-top: 1.1rem;
+    border: 2px solid rgb(158, 158, 158);
+    border-radius: 8px;
+    box-shadow: rgb(158, 158, 158) 1px 3px 4px;
+}
+
+
+#title_primary{
+    font-size: 1.7em;
+    font-weight: 600;
+    font-family: cursive;
+}
+
+#title_secondary{
+    font-family: cursive;
+    font-weight: 500;
+    font-size: 1.2em;
+}
+
+#send_button{
+    background-color: rgb(246, 72, 107);
+    color: white;
+    border: 1px solid crimson;
+    box-shadow: rgb(158, 158, 158) 1px 5px 4px;
+}
+
+#send_button:hover{
+    background-color: deepskyblue;
+    color: black;
+    border-color: rgb(14, 178, 253);
+}
+
+#alert_message{
+    border: 1px solid rgb(190, 190, 190);
+    text-align: center;
+    margin-top: 1.6rem;
+    margin-bottom: 0.2rem;
+    font-size: 1.1em;
+    box-sizing: border-box;
+    animation: cssAnimation 3s forwards;
+    -webkit-animation: cssAnimation 3s forwards; 
+    padding: 0.2rem 0;
+}
+
+#success{
+    text-align: center;
+    font-size: 1.1em;
+    animation: cssAnimation 3s forwards;
+    -webkit-animation: cssAnimation 3s forwards; 
+    
+}
+
+.hide{
+    display: none;
+}
+
+@keyframes cssAnimation {
+    0%   {opacity: 0.2;}
+    2%   {opacity: 0.25;}
+    4%   {opacity: 0.35;}
+    6%   {opacity: 0.65;}
+    8%   {opacity: 0.7;}
+    10%  {opacity: 0.8;}
+    12%  {opacity: 1;}
+    85%  {opacity: 0.9;}
+    87%  {opacity: 0.8;}
+    89%  {opacity: 0.6;}
+    92%  {opacity: 0.4;}
+    94%  {opacity: 0.25;}
+    96%  {opacity: 0.20;}
+    98%  {opacity: 0.15;}
+    100% {opacity: 0;}
+}
+
+@-webkit-keyframes cssAnimation {
+    0%   {opacity: 0.2;}
+    2%   {opacity: 0.25;}
+    4%   {opacity: 0.35;}
+    6%   {opacity: 0.65;}
+    8%   {opacity: 0.7;}
+    10%  {opacity: 0.8;}
+    12%  {opacity: 1;}
+    85%  {opacity: 0.9;}
+    87%  {opacity: 0.8;}
+    89%  {opacity: 0.6;}
+    92%  {opacity: 0.4;}
+    94%  {opacity: 0.25;}
+    96%  {opacity: 0.20;}
+    98%  {opacity: 0.15;}
+    100% {opacity: 0;}
+}
+
