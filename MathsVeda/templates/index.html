@@ -1,0 +1,322 @@
+{% extends 'base.html' %}
+
+<head>
+    {% block head %} {{ super() }}
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caprasimo&display=swap" rel="stylesheet">  
+
+    <style>
+
+        .card{
+            border-radius: 15px;
+            cursor: pointer;
+            opacity: 0.9
+        }
+
+        body{
+            background-image: url('../static/bg_final.png'); 
+            height: 100vh;
+        }
+
+        #learning_start{
+            font-family: cursive;
+            font-weight: 600;
+            font-size: 1.5em;
+            color: rgb(255, 79, 138);
+        }
+        
+        #graphics_primary{
+            width: 80%;
+            height: 80%;
+        }
+
+        .first_cont{
+            margin-top: 0.4rem;
+            margin-bottom: 0.6rem;
+            box-sizing: border-box;
+        }
+
+    
+        #primary, #secondary{
+            padding: 0.5rem;
+            font-weight: 300;
+        }
+
+        
+        #primary{
+            margin-top: 3rem;
+            font-size: 2.7em;
+            font-family: 'Caprasimo', cursive;
+            color: rgb(20, 129, 255);
+            animation: 2s primary ease-out;
+        }
+
+        
+
+        #secondary{
+    
+            font-size: 1.5em;
+            font-family: 'Caprasimo', cursive;
+            color: rgb(255, 79, 138);
+            animation: 3s primary ease-out;
+            animation-delay: 2000;
+        }
+
+        @keyframes primary{
+            0% {
+                opacity: 0;
+                transform: translateY(80%);
+            }
+            20% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(0%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0%);
+            }
+        }
+        
+        #start_learning_btn{
+           width: fit-content;
+           height: fit-content;
+           font-size: 1.2em;
+           padding: 0.4rem;
+           display: block;
+           margin-top: 2.7rem;
+           
+           background-color: rgb(255, 133, 184);
+           border-radius: 12px;
+           box-shadow: gray 4px 4px 3px;
+           border-style: none;
+           margin-left: 1.1rem;
+           font-weight: 500;
+        }
+
+        #start_learning_link{
+            text-decoration: none;
+            padding: 0.4rem;
+            color: black;
+            font-family: cursive;
+        }
+
+        #start_learning_btn:hover{
+            background-color: rgb(113, 255, 184);
+        }
+
+        .title_main{
+            margin-top: 0.6rem;
+            font-family: 'Caprasimo', cursive;
+            color: rgb(79, 140, 255);
+        }
+
+        .content_text{
+            
+            font-size: 1.3em;
+            font-weight: 400;
+        }
+
+    </style>
+    {% endblock %}
+</head>
+
+<body>
+    {% block content %}
+   
+<!-- 
+   Vedic maths illustration 
+https://assets1.lottiefiles.com/packages/lf20_D7l6QPTtOL.json
+
+
+https://assets2.lottiefiles.com/packages/lf20_hk63stcp.json
+
+https://assets2.lottiefiles.com/packages/lf20_1t2wm6sj.json
+
+https://assets2.lottiefiles.com/packages/lf20_7otOO3kwyN.json -->
+
+<div id="graphic_primary">
+    
+</div>
+
+    <div class="container first_cont">
+        <div class="row">
+            <div id = "col1" class="col-lg-6">
+                <p id="primary">Discover Vedic Maths</p>
+                <p id="secondary">Unleash the Power of Ancient <br> Techniques for Effortless Calculation!</p>
+                <button id = "start_learning_btn"><a id = "start_learning_link" href="#learning_start">Start Learning</a></button>
+            </div>
+
+            <div id = "col2" class="col-lg-6">
+                <lottie-player id = "about_svg" src="https://assets1.lottiefiles.com/packages/lf20_D7l6QPTtOL.json"  background="transparent"  speed="1"  loop  autoplay></lottie-player>
+            </div>
+        </div>
+
+        <h2 class = "title_main">What is Vedic Mathematics?</h2>
+        <p class = "content_text">Welcome to the world of Vedic Mathematics! Discover the ancient system of mathematical principles and techniques rooted in the Vedas, the ancient scriptures of India. Vedic Mathematics is a comprehensive mathematical framework that offers a fresh perspective on solving complex calculations with remarkable ease and efficiency.<br /><br/>
+            Derived from the Sanskrit word "Veda," meaning knowledge, Vedic Mathematics encompasses a treasure trove of mathematical techniques that have been passed down through generations. Developed by ancient Indian sages, this system dates back thousands of years and provides a unique alternative approach to solving mathematical problems.
+            
+            Vedic Mathematics goes beyond rote memorization and cumbersome algorithms. It offers a holistic understanding of numbers and their interconnectedness, enabling individuals to unravel the mysteries of mathematics in an intuitive and logical manner. This system not only simplifies calculations but also enhances mental agility, promotes creative thinking, and nurtures a deep appreciation for the beauty of mathematics</p>
+        
+        <p class="content_text">
+            Vedic Maths is a system of mathematical calculations rooted in the Vedas, 
+            ancient scriptures of India. This unique method dates back thousands of years and offers an alternative approach
+             to solving mathematical problems with remarkable speed and simplicity.
+        </p>
+        <h2 class = "title_main"></h2>
+    </div>
+
+
+    
+    
+    <!-- cards begin here -->
+
+    <hr class="hr-blurry my-3" />
+    <h3 id = "learning_start" class = "text-center">Start Learning Vedic Maths With Solution Visualizer</h3>
+    <hr class="hr-blurry my-3" />
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 text-center my-3">
+                <div class="card text-white bg-success">
+                    <div class="card-header text-center">Concept-1</div>
+                    <div class="card-body text-center">
+                      <h5 class="card-title text-center">Addition</h5>
+                      <p class="card-text text-center">Learn the vedic way of adding numbers in simple and faster way</p>
+                      <a class = "btn btn-light" href = "{{url_for('main.calc', p = ['s-1'])}}">Start Learning</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center my-3">
+                <div class="card text-white bg-primary">
+                    <div class="card-header text-center">Concept-2</div>
+                    <div class="card-body text-center">
+                      <h5 class="card-title text-center">Determinants</h5>
+                      <p class="card-text text-center">Learn to find Determinants of 3 x 3 and 4 x 4 matrix</p>
+                      <a class = "btn btn-light" href = "{{url_for('main.calc', p = ['s-2'])}}">Start Learning</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center my-3">
+                <div class="card text-white bg-danger max-width">
+                    <div class="card-header text-center">Concept-3</div>
+                    <div class="card-body text-center">
+                      <h5 class="card-title text-center">Inverse of Matrix</h5>
+                      <p class="card-text text-center">Learn to find the inverse of 3 x 3 matrix in the fastest way ever</p>
+                      <a class = "btn btn-light" href = "{{url_for('main.calc', p = ['s-3'])}}">Start Learning</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 text-center my-3">
+                <div class="card text-white bg-warning">
+                    <div class="card-header text-center">Concept-4</div>
+                    <div class="card-body text-center">
+                      <h5 class="card-title text-center">Simple Linear Equations</h5>
+                      <p class="card-text text-center">Learn to find the solution of some simple linear equations in a matter of seconds</p>
+                      <a class = "btn btn-light" href = "{{url_for('main.calc', p = ['s-4'])}}">Start Learning</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center my-3">
+                <div class="card text-white bg-danger">
+                    <div class="card-header text-center">Concept-5</div>
+                    <div class="card-body text-center">
+                      <h5 class="card-title text-center">Pair of Linear Equations</h5>
+                      <p class="card-text text-center">Learn to solve pair of linear equations in two variable from vedic approach</p>
+                      <a class = "btn btn-light" href = "{{url_for('main.calc', p = ['s-5'])}}">Start Learning</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center my-3">
+                <div class="card text-white bg-success max-width">
+                    <div class="card-header text-center">Concept-6</div>
+                    <div class="card-body text-center">
+                      <h5 class="card-title text-center">Quadratic Equations</h5>
+                      <p class="card-text text-center">Learn to solve quadratic equations in a faster way in vedic mathematics</p>
+                      <a class = "btn btn-light" href = "#">Start Learning</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 text-center my-3">
+                <div class="card text-white bg-info">
+                    <div class="card-header text-center">Concept-7</div>
+                    <div class="card-body text-center">
+                      <h5 class="card-title text-center">Square and Square root</h5>
+                      <p class="card-text text-center">Learn to find the square and sqaure root of a number in fastest way</p>
+                      <a class = "btn btn-light" href = "#">Start Learning</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center my-3">
+                <div class="card text-white bg-primary">
+                    <div class="card-header text-center">Concept-8</div>
+                    <div class="card-body text-center">
+                      <h5 class="card-title text-center">Cube and Cube root</h5>
+                      <p class="card-text text-center">Learn to find the cube and cube root of a number in fastest way</p>
+                      <a class = "btn btn-light" href = "#">Start Learning</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center my-3">
+                <div class="card text-white bg-success max-width">
+                    <div class="card-header text-center">Concept=9</div>
+                    <div class="card-body text-center">
+                      <h5 class="card-title text-center">Multiplication</h5>
+                      <p class="card-text text-center">Learn how to multiply numbers in seconds from vedic approach</p>
+                      <a class = "btn btn-light" href = "#">Start Learning</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="container first_cont">
+        <h2 class = "title_main">Practice with solution generator</h2>
+        <p class="content_text">
+            Our solution generator harnesses the principles of Vedic Maths to provide 
+            instant answers to a wide range of mathematical problems. From basic arithmetic to complex equations, 
+            our user-friendly interface makes it easy to input your calculations and receive immediate results.
+        </p>
+
+        <h2 class = "title_main">Unleashing the Power of Vedic Maths: Why Learning Matters</h2>
+        <p class="content_text">
+            Learning Vedic Maths opens up a world of advantages and opportunities. 
+            With its efficient techniques and streamlined approach to calculations, 
+            Vedic Maths equips learners with valuable skills that extend far beyond 
+            the realm of mathematics. By mastering Vedic Maths, individuals can improve 
+            their mental agility, enhance
+             problem-solving abilities, and gain a deeper understanding of 
+             numbers and mathematical concepts. 
+        </p>
+
+        <p class="content_text">
+            The speed and accuracy achieved through Vedic Maths techniques are particularly 
+            beneficial in exams, competitive scenarios, and real-world applications. Moreover,
+             learning Vedic Maths fosters confidence, boosts self-esteem, and promotes a positive 
+             attitude towards mathematics. It is a gateway to unlocking the beauty and simplicity 
+             hidden within complex calculations. Embrace the power of Vedic Maths and embark on a 
+             transformative journey that will enrich your
+             mathematical abilities and transform the way you approach problem-solving
+              in all aspects of life.
+        </p>
+    </div>
+    
+
+
+
+    {% endblock %}
+
+
+</body>
