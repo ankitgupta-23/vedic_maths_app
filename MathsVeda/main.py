@@ -45,9 +45,13 @@ def contact_mail():
     email = request.form.get('email')
     message = request.form.get('message')
 
-    send_message({"name":name, "email": email, "message": message})
-
-    return jsonify({"status": "success"})
+    status = send_message({"name":name, "email": email, "message": message})
+    
+    if(status>0):
+        return jsonify({"status": "success"})
+    
+    return jsonify({"status": "error"})
+    
 
 
 
