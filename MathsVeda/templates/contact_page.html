@@ -188,7 +188,9 @@ function validate(){
                             $("#status_div").css({display: "block"})
                         }
                           
-                    }
+                    },
+
+                    timeout: (15000) 
 
                     }).done((response)=>{
                         console.log("ajax call finished!")
