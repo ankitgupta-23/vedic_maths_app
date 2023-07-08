@@ -168,6 +168,8 @@ function validate(){
                     data: formdata,
                     processData: false,
                     contentType: false,
+                    timeout: 10000,
+
                     success: (response)=>{
                 
                         if(response.status == 'success'){
@@ -180,17 +182,24 @@ function validate(){
                         }
                     },
 
-                    error: (response)=>{
+                    error: (xhr, textStatus, errorThrown)=>{
 
-                        if(response.status == 'error'){
+                        if(textStatus == 'timeout'){
                             $("#status_div").addClass("alert-danger");
-                            $("#status_message").append('Something broke at our end...\nMessage not sent')
+                            $("#status_message").append('Message not sent, try again !')
                             $("#status_div").css({display: "block"})
-                        }
-                          
-                    },
+                            $("#send_button").html("Send")
 
-                    timeout: (15000) 
+                        }
+
+                        $("#status_div").addClass("alert-danger");
+                        $("#status_message").append('Message not sent, try again !')
+                        $("#status_div").css({display: "block"})
+                        $("#send_button").html("Send")
+                          
+                    }
+
+                    
 
                     }).done((response)=>{
                         console.log("ajax call finished!")
