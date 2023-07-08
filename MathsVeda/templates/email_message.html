@@ -1,0 +1,20 @@
+<html>
+
+
+    <body>
+        {%block content%}
+        <h3 style = "text-align: center; color: #576aff; padding: 0.4rem; background: #cbfaaa">
+            Message From MathsVeda</h3>
+        
+        <p style = "font-size: 1.1em;" >Name:  &nbsp;&nbsp; {{name}} </p>
+        <p style = "font-size: 1.1em;" >Email:  &nbsp;&nbsp; {{email}} </p>
+        
+        <div style = "border: 1px solid; border-color: #d0b3ff; background: #e9e9f7;">
+            <p style = "font-size: 1.4em; color: #9a52ff; text-align: center;">Message</p>
+            <p style = "font-size: 1.2em; padding: 0.3rem;">
+                {{message}}
+            </p>
+        </div>
+        {% endblock %}
+    </body>
+</html>
