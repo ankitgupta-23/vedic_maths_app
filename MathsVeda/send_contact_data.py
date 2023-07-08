@@ -30,6 +30,7 @@ def send_message(data):
         mail.send(msg)
         print("sent successfully !")
         return 1
+    
     except Exception as e:
         print(e)
         return -1
